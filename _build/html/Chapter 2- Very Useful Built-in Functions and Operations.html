@@ -1,0 +1,3963 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 2: Very Useful Built-in Functions and Operations &#8212; Technical Interview Preparation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter 2- Very Useful Built-in Functions and Operations';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 3: Big-O Analysis" href="Chapter%203-%20Big-O%20Analysis.html" />
+    <link rel="prev" title="Chapter 1: Python Collections" href="Chapter%201-%20Python%20Collections.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Technical Interview Preparation - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Technical Interview Preparation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to TIP
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Chapter%201-%20Python%20Collections.html">Chapter 1: Python Collections</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Chapter 2: Very Useful Built-in Functions and Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chapter%203-%20Big-O%20Analysis.html">Chapter 3: Big-O Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chapter%204-%20Recursion.html">Chapter 4: Recursion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chapter%205-%20Dynamic%20Programming.html">Chapter 5: Dynamic Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Practice%20Questions.html">Practice Questions</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter 2- Very Useful Built-in Functions and Operations.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Chapter 2- Very Useful Built-in Functions and Operations.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 2: Very Useful Built-in Functions and Operations</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#built-in-functions">Built-in Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerate-x">Enumerate(x)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zip">Zip</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorted-iterable-key-len">sorted(iterable, key=len)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-arg1-arg2-etc-expression">lambda arg1, arg2, etc. : expression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type-conversions">Type Conversions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#float-inf">float(“inf”)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#round-number-decimal">round(number, decimal)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#abs-number">abs(number)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#range-start-stop-step">range(start, stop, step)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-except">try-except</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#others">Others</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-strings">f-strings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehension">List Comprehension</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionary-comprehensions">Dictionary Comprehensions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ternary-operator">ternary operator</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-2-very-useful-built-in-functions-and-operations">
+<h1>Chapter 2: Very Useful Built-in Functions and Operations<a class="headerlink" href="#chapter-2-very-useful-built-in-functions-and-operations" title="Link to this heading">#</a></h1>
+<section id="built-in-functions">
+<h2>Built-in Functions<a class="headerlink" href="#built-in-functions" title="Link to this heading">#</a></h2>
+<section id="enumerate-x">
+<h3>Enumerate(x)<a class="headerlink" href="#enumerate-x" title="Link to this heading">#</a></h3>
+<p>Enumerate(x) takes an iterable such as a list, dictionary, or string, and adds a counter to the function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1: Iterating over indices and characters in a string</span>
+<span class="n">my_string</span> <span class="o">=</span> <span class="s1">&#39;code&#39;</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">my_string</span><span class="p">):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">char</span><span class="p">)</span>
+
+<span class="c1"># Prints:</span>
+<span class="c1"># 0 c</span>
+<span class="c1"># 1 o</span>
+<span class="c1"># 2 d</span>
+<span class="c1"># 3 e</span>
+
+<span class="c1"># Example 2: Enumerate with start value specified</span>
+<span class="n">cereals</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cheerios&#39;</span><span class="p">,</span> <span class="s1">&#39;fruity pebbles&#39;</span><span class="p">,</span> <span class="s1">&#39;cocoa puffs&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">cereal</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cereals</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">cereal</span><span class="p">)</span>
+
+<span class="c1"># Prints:</span>
+<span class="c1"># 1 cheerios</span>
+<span class="c1"># 2 fruity pebbles</span>
+<span class="c1"># 3 cocoa puffs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 c
+1 o
+2 d
+3 e
+1 cheerios
+2 fruity pebbles
+3 cocoa puffs
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="zip">
+<h3>Zip<a class="headerlink" href="#zip" title="Link to this heading">#</a></h3>
+<p>Zip is useful for iterating over multiple iterables in parallel or for combining data from separate iterables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1: Zipping Two Lists</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Alice&#39;</span><span class="p">,</span> <span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="s1">&#39;Charlie&#39;</span><span class="p">]</span>
+<span class="n">ages</span> <span class="o">=</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">35</span><span class="p">]</span>
+<span class="n">zipped</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">ages</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">zipped</span><span class="p">))</span> <span class="c1"># Prints [(&#39;Alice&#39;, 25), (&#39;Bob&#39;, 30), (&#39;Charlie&#39;, 35)]</span>
+
+<span class="c1"># Example 2: Zipping Lists of Different Lengths</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Alice&#39;</span><span class="p">,</span> <span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="s1">&#39;Charlie&#39;</span><span class="p">,</span> <span class="s1">&#39;David&#39;</span><span class="p">]</span>
+<span class="n">ages</span> <span class="o">=</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">35</span><span class="p">]</span>
+<span class="n">zipped</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">ages</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">zipped</span><span class="p">))</span> <span class="c1"># Prints [(&#39;Alice&#39;, 25), (&#39;Bob&#39;, 30), (&#39;Charlie&#39;, 35)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;Alice&#39;, 25), (&#39;Bob&#39;, 30), (&#39;Charlie&#39;, 35)]
+[(&#39;Alice&#39;, 25), (&#39;Bob&#39;, 30), (&#39;Charlie&#39;, 35)]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sorted-iterable-key-len">
+<h3>sorted(iterable, key=len)<a class="headerlink" href="#sorted-iterable-key-len" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1: Sorting a List in Ascending Order</span>
+<span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="c1"># Output: [1, 3, 5]</span>
+
+<span class="c1"># Example 2: Sorting a List in Descending Order</span>
+<span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="c1"># Output: [5, 3, 1]</span>
+
+<span class="c1"># Example 3: Sorting Keys in a Dictionary</span>
+<span class="n">my_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;apple&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;cherry&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">result</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">my_dict</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># Output: [&#39;apple&#39;, &#39;banana&#39;, &#39;cherry&#39;]</span>
+
+<span class="c1"># Example 4: Sorting Strings by Length</span>
+<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;grape&quot;</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># Output: [&#39;apple&#39;, &#39;grape&#39;, &#39;orange&#39;, &#39;banana&#39;]</span>
+
+<span class="c1"># Example 5: Sorting By Last Character With a Custom Function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">last_character</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;cherry&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">last_character</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># Output: [&#39;banana&#39;, &#39;apple&#39;, &#39;date&#39;, &#39;cherry&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 3, 5]
+[5, 3, 1]
+[&#39;apple&#39;, &#39;banana&#39;, &#39;cherry&#39;]
+[&#39;apple&#39;, &#39;grape&#39;, &#39;orange&#39;, &#39;banana&#39;]
+[&#39;banana&#39;, &#39;apple&#39;, &#39;date&#39;, &#39;cherry&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lambda-arg1-arg2-etc-expression">
+<h3>lambda arg1, arg2, etc. : expression<a class="headerlink" href="#lambda-arg1-arg2-etc-expression" title="Link to this heading">#</a></h3>
+<p>Anonymous function that returns the result of evaluating expression on arg1, arg2, etc</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1: Lambda Function with 1 Argument</span>
+<span class="n">return_value</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">10</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">return_value</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span> <span class="c1"># Prints 110</span>
+
+<span class="c1"># Example 2: Lambda Function with Multiple Arguments</span>
+<span class="n">return_value</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">return_value</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span> <span class="c1"># Prints 30</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>110
+30
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lambda functions are often used with the sorted() function to specify a custom sort key.</span>
+<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;cherry&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;banana&#39;, &#39;apple&#39;, &#39;date&#39;, &#39;cherry&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="type-conversions">
+<h3>Type Conversions<a class="headerlink" href="#type-conversions" title="Link to this heading">#</a></h3>
+<p>Python’s built-in type conversion functions, such as int(), str(), float(), and bool(), enable the switching between different data types.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_str</span> <span class="o">=</span> <span class="s1">&#39;123&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">num_str</span><span class="p">))</span> <span class="c1"># Output: &lt;class &#39;str&#39;&gt;</span>
+<span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_str</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">num</span><span class="p">))</span> <span class="c1"># Output: &lt;class &#39;int&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;str&#39;&gt;
+&lt;class &#39;int&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;John&#39;</span>
+<span class="n">age</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;My name is &#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;, and I am &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">age</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; years old.&#39;</span><span class="p">)</span>
+<span class="c1"># Prints: My name is John, and I am 25 years old.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>My name is John, and I am 25 years old.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mf">2.6</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;2.6&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+2.0
+2.6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="nb">str</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span> <span class="c1"># z will be &quot;[1, 2, 3, 4]&quot;</span>
+<span class="n">z</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[1, 2, 3, 4]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="float-inf">
+<h3>float(“inf”)<a class="headerlink" href="#float-inf" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">safe_divide</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">safe_divide</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">safe_divide</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">safe_divide</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.0
+inf
+-inf
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="round-number-decimal">
+<h3>round(number, decimal)<a class="headerlink" href="#round-number-decimal" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1: Round to hundredth</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mf">3.14159</span>
+<span class="n">rounded</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rounded</span><span class="p">)</span> <span class="c1"># Prints 3.14</span>
+
+<span class="c1"># Example 2: Round to nearest whole number</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mf">3.14159</span>
+<span class="n">rounded</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rounded</span><span class="p">)</span> <span class="c1"># Prints 3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.14
+3
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="abs-number">
+<h3>abs(number)<a class="headerlink" href="#abs-number" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: Absolute value of a negative integer</span>
+<span class="n">absolute_value</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">absolute_value</span><span class="p">)</span> <span class="c1"># Prints 5</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="range-start-stop-step">
+<h3>range(start, stop, step)<a class="headerlink" href="#range-start-stop-step" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1: Just the stop value </span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)))</span> <span class="c1"># Evaluates to the sequence: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9</span>
+
+<span class="c1"># Example 2: Start and stop value</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)))</span> <span class="c1"># Evaluates to the sequence: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</span>
+
+<span class="c1"># Example 3: Start, stop, and step value</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">5</span><span class="p">)))</span> <span class="c1"># Evaluates to the sequence: 0, 5, 10, 15, 20, 25</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+[0, 5, 10, 15, 20, 25]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-except">
+<h3>try-except<a class="headerlink" href="#try-except" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">recursive_counter</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;I am called </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> times&quot;</span><span class="p">)</span>
+    <span class="n">recursive_counter</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Start the recursive calls</span>
+    <span class="n">recursive_counter</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">RecursionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Caught a RecursionError: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I am called 1 times
+I am called 2 times
+I am called 3 times
+I am called 4 times
+I am called 5 times
+I am called 6 times
+I am called 7 times
+I am called 8 times
+I am called 9 times
+I am called 10 times
+I am called 11 times
+I am called 12 times
+I am called 13 times
+I am called 14 times
+I am called 15 times
+I am called 16 times
+I am called 17 times
+I am called 18 times
+I am called 19 times
+I am called 20 times
+I am called 21 times
+I am called 22 times
+I am called 23 times
+I am called 24 times
+I am called 25 times
+I am called 26 times
+I am called 27 times
+I am called 28 times
+I am called 29 times
+I am called 30 times
+I am called 31 times
+I am called 32 times
+I am called 33 times
+I am called 34 times
+I am called 35 times
+I am called 36 times
+I am called 37 times
+I am called 38 times
+I am called 39 times
+I am called 40 times
+I am called 41 times
+I am called 42 times
+I am called 43 times
+I am called 44 times
+I am called 45 times
+I am called 46 times
+I am called 47 times
+I am called 48 times
+I am called 49 times
+I am called 50 times
+I am called 51 times
+I am called 52 times
+I am called 53 times
+I am called 54 times
+I am called 55 times
+I am called 56 times
+I am called 57 times
+I am called 58 times
+I am called 59 times
+I am called 60 times
+I am called 61 times
+I am called 62 times
+I am called 63 times
+I am called 64 times
+I am called 65 times
+I am called 66 times
+I am called 67 times
+I am called 68 times
+I am called 69 times
+I am called 70 times
+I am called 71 times
+I am called 72 times
+I am called 73 times
+I am called 74 times
+I am called 75 times
+I am called 76 times
+I am called 77 times
+I am called 78 times
+I am called 79 times
+I am called 80 times
+I am called 81 times
+I am called 82 times
+I am called 83 times
+I am called 84 times
+I am called 85 times
+I am called 86 times
+I am called 87 times
+I am called 88 times
+I am called 89 times
+I am called 90 times
+I am called 91 times
+I am called 92 times
+I am called 93 times
+I am called 94 times
+I am called 95 times
+I am called 96 times
+I am called 97 times
+I am called 98 times
+I am called 99 times
+I am called 100 times
+I am called 101 times
+I am called 102 times
+I am called 103 times
+I am called 104 times
+I am called 105 times
+I am called 106 times
+I am called 107 times
+I am called 108 times
+I am called 109 times
+I am called 110 times
+I am called 111 times
+I am called 112 times
+I am called 113 times
+I am called 114 times
+I am called 115 times
+I am called 116 times
+I am called 117 times
+I am called 118 times
+I am called 119 times
+I am called 120 times
+I am called 121 times
+I am called 122 times
+I am called 123 times
+I am called 124 times
+I am called 125 times
+I am called 126 times
+I am called 127 times
+I am called 128 times
+I am called 129 times
+I am called 130 times
+I am called 131 times
+I am called 132 times
+I am called 133 times
+I am called 134 times
+I am called 135 times
+I am called 136 times
+I am called 137 times
+I am called 138 times
+I am called 139 times
+I am called 140 times
+I am called 141 times
+I am called 142 times
+I am called 143 times
+I am called 144 times
+I am called 145 times
+I am called 146 times
+I am called 147 times
+I am called 148 times
+I am called 149 times
+I am called 150 times
+I am called 151 times
+I am called 152 times
+I am called 153 times
+I am called 154 times
+I am called 155 times
+I am called 156 times
+I am called 157 times
+I am called 158 times
+I am called 159 times
+I am called 160 times
+I am called 161 times
+I am called 162 times
+I am called 163 times
+I am called 164 times
+I am called 165 times
+I am called 166 times
+I am called 167 times
+I am called 168 times
+I am called 169 times
+I am called 170 times
+I am called 171 times
+I am called 172 times
+I am called 173 times
+I am called 174 times
+I am called 175 times
+I am called 176 times
+I am called 177 times
+I am called 178 times
+I am called 179 times
+I am called 180 times
+I am called 181 times
+I am called 182 times
+I am called 183 times
+I am called 184 times
+I am called 185 times
+I am called 186 times
+I am called 187 times
+I am called 188 times
+I am called 189 times
+I am called 190 times
+I am called 191 times
+I am called 192 times
+I am called 193 times
+I am called 194 times
+I am called 195 times
+I am called 196 times
+I am called 197 times
+I am called 198 times
+I am called 199 times
+I am called 200 times
+I am called 201 times
+I am called 202 times
+I am called 203 times
+I am called 204 times
+I am called 205 times
+I am called 206 times
+I am called 207 times
+I am called 208 times
+I am called 209 times
+I am called 210 times
+I am called 211 times
+I am called 212 times
+I am called 213 times
+I am called 214 times
+I am called 215 times
+I am called 216 times
+I am called 217 times
+I am called 218 times
+I am called 219 times
+I am called 220 times
+I am called 221 times
+I am called 222 times
+I am called 223 times
+I am called 224 times
+I am called 225 times
+I am called 226 times
+I am called 227 times
+I am called 228 times
+I am called 229 times
+I am called 230 times
+I am called 231 times
+I am called 232 times
+I am called 233 times
+I am called 234 times
+I am called 235 times
+I am called 236 times
+I am called 237 times
+I am called 238 times
+I am called 239 times
+I am called 240 times
+I am called 241 times
+I am called 242 times
+I am called 243 times
+I am called 244 times
+I am called 245 times
+I am called 246 times
+I am called 247 times
+I am called 248 times
+I am called 249 times
+I am called 250 times
+I am called 251 times
+I am called 252 times
+I am called 253 times
+I am called 254 times
+I am called 255 times
+I am called 256 times
+I am called 257 times
+I am called 258 times
+I am called 259 times
+I am called 260 times
+I am called 261 times
+I am called 262 times
+I am called 263 times
+I am called 264 times
+I am called 265 times
+I am called 266 times
+I am called 267 times
+I am called 268 times
+I am called 269 times
+I am called 270 times
+I am called 271 times
+I am called 272 times
+I am called 273 times
+I am called 274 times
+I am called 275 times
+I am called 276 times
+I am called 277 times
+I am called 278 times
+I am called 279 times
+I am called 280 times
+I am called 281 times
+I am called 282 times
+I am called 283 times
+I am called 284 times
+I am called 285 times
+I am called 286 times
+I am called 287 times
+I am called 288 times
+I am called 289 times
+I am called 290 times
+I am called 291 times
+I am called 292 times
+I am called 293 times
+I am called 294 times
+I am called 295 times
+I am called 296 times
+I am called 297 times
+I am called 298 times
+I am called 299 times
+I am called 300 times
+I am called 301 times
+I am called 302 times
+I am called 303 times
+I am called 304 times
+I am called 305 times
+I am called 306 times
+I am called 307 times
+I am called 308 times
+I am called 309 times
+I am called 310 times
+I am called 311 times
+I am called 312 times
+I am called 313 times
+I am called 314 times
+I am called 315 times
+I am called 316 times
+I am called 317 times
+I am called 318 times
+I am called 319 times
+I am called 320 times
+I am called 321 times
+I am called 322 times
+I am called 323 times
+I am called 324 times
+I am called 325 times
+I am called 326 times
+I am called 327 times
+I am called 328 times
+I am called 329 times
+I am called 330 times
+I am called 331 times
+I am called 332 times
+I am called 333 times
+I am called 334 times
+I am called 335 times
+I am called 336 times
+I am called 337 times
+I am called 338 times
+I am called 339 times
+I am called 340 times
+I am called 341 times
+I am called 342 times
+I am called 343 times
+I am called 344 times
+I am called 345 times
+I am called 346 times
+I am called 347 times
+I am called 348 times
+I am called 349 times
+I am called 350 times
+I am called 351 times
+I am called 352 times
+I am called 353 times
+I am called 354 times
+I am called 355 times
+I am called 356 times
+I am called 357 times
+I am called 358 times
+I am called 359 times
+I am called 360 times
+I am called 361 times
+I am called 362 times
+I am called 363 times
+I am called 364 times
+I am called 365 times
+I am called 366 times
+I am called 367 times
+I am called 368 times
+I am called 369 times
+I am called 370 times
+I am called 371 times
+I am called 372 times
+I am called 373 times
+I am called 374 times
+I am called 375 times
+I am called 376 times
+I am called 377 times
+I am called 378 times
+I am called 379 times
+I am called 380 times
+I am called 381 times
+I am called 382 times
+I am called 383 times
+I am called 384 times
+I am called 385 times
+I am called 386 times
+I am called 387 times
+I am called 388 times
+I am called 389 times
+I am called 390 times
+I am called 391 times
+I am called 392 times
+I am called 393 times
+I am called 394 times
+I am called 395 times
+I am called 396 times
+I am called 397 times
+I am called 398 times
+I am called 399 times
+I am called 400 times
+I am called 401 times
+I am called 402 times
+I am called 403 times
+I am called 404 times
+I am called 405 times
+I am called 406 times
+I am called 407 times
+I am called 408 times
+I am called 409 times
+I am called 410 times
+I am called 411 times
+I am called 412 times
+I am called 413 times
+I am called 414 times
+I am called 415 times
+I am called 416 times
+I am called 417 times
+I am called 418 times
+I am called 419 times
+I am called 420 times
+I am called 421 times
+I am called 422 times
+I am called 423 times
+I am called 424 times
+I am called 425 times
+I am called 426 times
+I am called 427 times
+I am called 428 times
+I am called 429 times
+I am called 430 times
+I am called 431 times
+I am called 432 times
+I am called 433 times
+I am called 434 times
+I am called 435 times
+I am called 436 times
+I am called 437 times
+I am called 438 times
+I am called 439 times
+I am called 440 times
+I am called 441 times
+I am called 442 times
+I am called 443 times
+I am called 444 times
+I am called 445 times
+I am called 446 times
+I am called 447 times
+I am called 448 times
+I am called 449 times
+I am called 450 times
+I am called 451 times
+I am called 452 times
+I am called 453 times
+I am called 454 times
+I am called 455 times
+I am called 456 times
+I am called 457 times
+I am called 458 times
+I am called 459 times
+I am called 460 times
+I am called 461 times
+I am called 462 times
+I am called 463 times
+I am called 464 times
+I am called 465 times
+I am called 466 times
+I am called 467 times
+I am called 468 times
+I am called 469 times
+I am called 470 times
+I am called 471 times
+I am called 472 times
+I am called 473 times
+I am called 474 times
+I am called 475 times
+I am called 476 times
+I am called 477 times
+I am called 478 times
+I am called 479 times
+I am called 480 times
+I am called 481 times
+I am called 482 times
+I am called 483 times
+I am called 484 times
+I am called 485 times
+I am called 486 times
+I am called 487 times
+I am called 488 times
+I am called 489 times
+I am called 490 times
+I am called 491 times
+I am called 492 times
+I am called 493 times
+I am called 494 times
+I am called 495 times
+I am called 496 times
+I am called 497 times
+I am called 498 times
+I am called 499 times
+I am called 500 times
+I am called 501 times
+I am called 502 times
+I am called 503 times
+I am called 504 times
+I am called 505 times
+I am called 506 times
+I am called 507 times
+I am called 508 times
+I am called 509 times
+I am called 510 times
+I am called 511 times
+I am called 512 times
+I am called 513 times
+I am called 514 times
+I am called 515 times
+I am called 516 times
+I am called 517 times
+I am called 518 times
+I am called 519 times
+I am called 520 times
+I am called 521 times
+I am called 522 times
+I am called 523 times
+I am called 524 times
+I am called 525 times
+I am called 526 times
+I am called 527 times
+I am called 528 times
+I am called 529 times
+I am called 530 times
+I am called 531 times
+I am called 532 times
+I am called 533 times
+I am called 534 times
+I am called 535 times
+I am called 536 times
+I am called 537 times
+I am called 538 times
+I am called 539 times
+I am called 540 times
+I am called 541 times
+I am called 542 times
+I am called 543 times
+I am called 544 times
+I am called 545 times
+I am called 546 times
+I am called 547 times
+I am called 548 times
+I am called 549 times
+I am called 550 times
+I am called 551 times
+I am called 552 times
+I am called 553 times
+I am called 554 times
+I am called 555 times
+I am called 556 times
+I am called 557 times
+I am called 558 times
+I am called 559 times
+I am called 560 times
+I am called 561 times
+I am called 562 times
+I am called 563 times
+I am called 564 times
+I am called 565 times
+I am called 566 times
+I am called 567 times
+I am called 568 times
+I am called 569 times
+I am called 570 times
+I am called 571 times
+I am called 572 times
+I am called 573 times
+I am called 574 times
+I am called 575 times
+I am called 576 times
+I am called 577 times
+I am called 578 times
+I am called 579 times
+I am called 580 times
+I am called 581 times
+I am called 582 times
+I am called 583 times
+I am called 584 times
+I am called 585 times
+I am called 586 times
+I am called 587 times
+I am called 588 times
+I am called 589 times
+I am called 590 times
+I am called 591 times
+I am called 592 times
+I am called 593 times
+I am called 594 times
+I am called 595 times
+I am called 596 times
+I am called 597 times
+I am called 598 times
+I am called 599 times
+I am called 600 times
+I am called 601 times
+I am called 602 times
+I am called 603 times
+I am called 604 times
+I am called 605 times
+I am called 606 times
+I am called 607 times
+I am called 608 times
+I am called 609 times
+I am called 610 times
+I am called 611 times
+I am called 612 times
+I am called 613 times
+I am called 614 times
+I am called 615 times
+I am called 616 times
+I am called 617 times
+I am called 618 times
+I am called 619 times
+I am called 620 times
+I am called 621 times
+I am called 622 times
+I am called 623 times
+I am called 624 times
+I am called 625 times
+I am called 626 times
+I am called 627 times
+I am called 628 times
+I am called 629 times
+I am called 630 times
+I am called 631 times
+I am called 632 times
+I am called 633 times
+I am called 634 times
+I am called 635 times
+I am called 636 times
+I am called 637 times
+I am called 638 times
+I am called 639 times
+I am called 640 times
+I am called 641 times
+I am called 642 times
+I am called 643 times
+I am called 644 times
+I am called 645 times
+I am called 646 times
+I am called 647 times
+I am called 648 times
+I am called 649 times
+I am called 650 times
+I am called 651 times
+I am called 652 times
+I am called 653 times
+I am called 654 times
+I am called 655 times
+I am called 656 times
+I am called 657 times
+I am called 658 times
+I am called 659 times
+I am called 660 times
+I am called 661 times
+I am called 662 times
+I am called 663 times
+I am called 664 times
+I am called 665 times
+I am called 666 times
+I am called 667 times
+I am called 668 times
+I am called 669 times
+I am called 670 times
+I am called 671 times
+I am called 672 times
+I am called 673 times
+I am called 674 times
+I am called 675 times
+I am called 676 times
+I am called 677 times
+I am called 678 times
+I am called 679 times
+I am called 680 times
+I am called 681 times
+I am called 682 times
+I am called 683 times
+I am called 684 times
+I am called 685 times
+I am called 686 times
+I am called 687 times
+I am called 688 times
+I am called 689 times
+I am called 690 times
+I am called 691 times
+I am called 692 times
+I am called 693 times
+I am called 694 times
+I am called 695 times
+I am called 696 times
+I am called 697 times
+I am called 698 times
+I am called 699 times
+I am called 700 times
+I am called 701 times
+I am called 702 times
+I am called 703 times
+I am called 704 times
+I am called 705 times
+I am called 706 times
+I am called 707 times
+I am called 708 times
+I am called 709 times
+I am called 710 times
+I am called 711 times
+I am called 712 times
+I am called 713 times
+I am called 714 times
+I am called 715 times
+I am called 716 times
+I am called 717 times
+I am called 718 times
+I am called 719 times
+I am called 720 times
+I am called 721 times
+I am called 722 times
+I am called 723 times
+I am called 724 times
+I am called 725 times
+I am called 726 times
+I am called 727 times
+I am called 728 times
+I am called 729 times
+I am called 730 times
+I am called 731 times
+I am called 732 times
+I am called 733 times
+I am called 734 times
+I am called 735 times
+I am called 736 times
+I am called 737 times
+I am called 738 times
+I am called 739 times
+I am called 740 times
+I am called 741 times
+I am called 742 times
+I am called 743 times
+I am called 744 times
+I am called 745 times
+I am called 746 times
+I am called 747 times
+I am called 748 times
+I am called 749 times
+I am called 750 times
+I am called 751 times
+I am called 752 times
+I am called 753 times
+I am called 754 times
+I am called 755 times
+I am called 756 times
+I am called 757 times
+I am called 758 times
+I am called 759 times
+I am called 760 times
+I am called 761 times
+I am called 762 times
+I am called 763 times
+I am called 764 times
+I am called 765 times
+I am called 766 times
+I am called 767 times
+I am called 768 times
+I am called 769 times
+I am called 770 times
+I am called 771 times
+I am called 772 times
+I am called 773 times
+I am called 774 times
+I am called 775 times
+I am called 776 times
+I am called 777 times
+I am called 778 times
+I am called 779 times
+I am called 780 times
+I am called 781 times
+I am called 782 times
+I am called 783 times
+I am called 784 times
+I am called 785 times
+I am called 786 times
+I am called 787 times
+I am called 788 times
+I am called 789 times
+I am called 790 times
+I am called 791 times
+I am called 792 times
+I am called 793 times
+I am called 794 times
+I am called 795 times
+I am called 796 times
+I am called 797 times
+I am called 798 times
+I am called 799 times
+I am called 800 times
+I am called 801 times
+I am called 802 times
+I am called 803 times
+I am called 804 times
+I am called 805 times
+I am called 806 times
+I am called 807 times
+I am called 808 times
+I am called 809 times
+I am called 810 times
+I am called 811 times
+I am called 812 times
+I am called 813 times
+I am called 814 times
+I am called 815 times
+I am called 816 times
+I am called 817 times
+I am called 818 times
+I am called 819 times
+I am called 820 times
+I am called 821 times
+I am called 822 times
+I am called 823 times
+I am called 824 times
+I am called 825 times
+I am called 826 times
+I am called 827 times
+I am called 828 times
+I am called 829 times
+I am called 830 times
+I am called 831 times
+I am called 832 times
+I am called 833 times
+I am called 834 times
+I am called 835 times
+I am called 836 times
+I am called 837 times
+I am called 838 times
+I am called 839 times
+I am called 840 times
+I am called 841 times
+I am called 842 times
+I am called 843 times
+I am called 844 times
+I am called 845 times
+I am called 846 times
+I am called 847 times
+I am called 848 times
+I am called 849 times
+I am called 850 times
+I am called 851 times
+I am called 852 times
+I am called 853 times
+I am called 854 times
+I am called 855 times
+I am called 856 times
+I am called 857 times
+I am called 858 times
+I am called 859 times
+I am called 860 times
+I am called 861 times
+I am called 862 times
+I am called 863 times
+I am called 864 times
+I am called 865 times
+I am called 866 times
+I am called 867 times
+I am called 868 times
+I am called 869 times
+I am called 870 times
+I am called 871 times
+I am called 872 times
+I am called 873 times
+I am called 874 times
+I am called 875 times
+I am called 876 times
+I am called 877 times
+I am called 878 times
+I am called 879 times
+I am called 880 times
+I am called 881 times
+I am called 882 times
+I am called 883 times
+I am called 884 times
+I am called 885 times
+I am called 886 times
+I am called 887 times
+I am called 888 times
+I am called 889 times
+I am called 890 times
+I am called 891 times
+I am called 892 times
+I am called 893 times
+I am called 894 times
+I am called 895 times
+I am called 896 times
+I am called 897 times
+I am called 898 times
+I am called 899 times
+I am called 900 times
+I am called 901 times
+I am called 902 times
+I am called 903 times
+I am called 904 times
+I am called 905 times
+I am called 906 times
+I am called 907 times
+I am called 908 times
+I am called 909 times
+I am called 910 times
+I am called 911 times
+I am called 912 times
+I am called 913 times
+I am called 914 times
+I am called 915 times
+I am called 916 times
+I am called 917 times
+I am called 918 times
+I am called 919 times
+I am called 920 times
+I am called 921 times
+I am called 922 times
+I am called 923 times
+I am called 924 times
+I am called 925 times
+I am called 926 times
+I am called 927 times
+I am called 928 times
+I am called 929 times
+I am called 930 times
+I am called 931 times
+I am called 932 times
+I am called 933 times
+I am called 934 times
+I am called 935 times
+I am called 936 times
+I am called 937 times
+I am called 938 times
+I am called 939 times
+I am called 940 times
+I am called 941 times
+I am called 942 times
+I am called 943 times
+I am called 944 times
+I am called 945 times
+I am called 946 times
+I am called 947 times
+I am called 948 times
+I am called 949 times
+I am called 950 times
+I am called 951 times
+I am called 952 times
+I am called 953 times
+I am called 954 times
+I am called 955 times
+I am called 956 times
+I am called 957 times
+I am called 958 times
+I am called 959 times
+I am called 960 times
+I am called 961 times
+I am called 962 times
+I am called 963 times
+I am called 964 times
+I am called 965 times
+I am called 966 times
+I am called 967 times
+I am called 968 times
+I am called 969 times
+I am called 970 times
+I am called 971 times
+I am called 972 times
+I am called 973 times
+I am called 974 times
+I am called 975 times
+I am called 976 times
+I am called 977 times
+I am called 978 times
+I am called 979 times
+I am called 980 times
+I am called 981 times
+I am called 982 times
+I am called 983 times
+I am called 984 times
+I am called 985 times
+I am called 986 times
+I am called 987 times
+I am called 988 times
+I am called 989 times
+I am called 990 times
+I am called 991 times
+I am called 992 times
+I am called 993 times
+I am called 994 times
+I am called 995 times
+I am called 996 times
+I am called 997 times
+I am called 998 times
+I am called 999 times
+I am called 1000 times
+I am called 1001 times
+I am called 1002 times
+I am called 1003 times
+I am called 1004 times
+I am called 1005 times
+I am called 1006 times
+I am called 1007 times
+I am called 1008 times
+I am called 1009 times
+I am called 1010 times
+I am called 1011 times
+I am called 1012 times
+I am called 1013 times
+I am called 1014 times
+I am called 1015 times
+I am called 1016 times
+I am called 1017 times
+I am called 1018 times
+I am called 1019 times
+I am called 1020 times
+I am called 1021 times
+I am called 1022 times
+I am called 1023 times
+I am called 1024 times
+I am called 1025 times
+I am called 1026 times
+I am called 1027 times
+I am called 1028 times
+I am called 1029 times
+I am called 1030 times
+I am called 1031 times
+I am called 1032 times
+I am called 1033 times
+I am called 1034 times
+I am called 1035 times
+I am called 1036 times
+I am called 1037 times
+I am called 1038 times
+I am called 1039 times
+I am called 1040 times
+I am called 1041 times
+I am called 1042 times
+I am called 1043 times
+I am called 1044 times
+I am called 1045 times
+I am called 1046 times
+I am called 1047 times
+I am called 1048 times
+I am called 1049 times
+I am called 1050 times
+I am called 1051 times
+I am called 1052 times
+I am called 1053 times
+I am called 1054 times
+I am called 1055 times
+I am called 1056 times
+I am called 1057 times
+I am called 1058 times
+I am called 1059 times
+I am called 1060 times
+I am called 1061 times
+I am called 1062 times
+I am called 1063 times
+I am called 1064 times
+I am called 1065 times
+I am called 1066 times
+I am called 1067 times
+I am called 1068 times
+I am called 1069 times
+I am called 1070 times
+I am called 1071 times
+I am called 1072 times
+I am called 1073 times
+I am called 1074 times
+I am called 1075 times
+I am called 1076 times
+I am called 1077 times
+I am called 1078 times
+I am called 1079 times
+I am called 1080 times
+I am called 1081 times
+I am called 1082 times
+I am called 1083 times
+I am called 1084 times
+I am called 1085 times
+I am called 1086 times
+I am called 1087 times
+I am called 1088 times
+I am called 1089 times
+I am called 1090 times
+I am called 1091 times
+I am called 1092 times
+I am called 1093 times
+I am called 1094 times
+I am called 1095 times
+I am called 1096 times
+I am called 1097 times
+I am called 1098 times
+I am called 1099 times
+I am called 1100 times
+I am called 1101 times
+I am called 1102 times
+I am called 1103 times
+I am called 1104 times
+I am called 1105 times
+I am called 1106 times
+I am called 1107 times
+I am called 1108 times
+I am called 1109 times
+I am called 1110 times
+I am called 1111 times
+I am called 1112 times
+I am called 1113 times
+I am called 1114 times
+I am called 1115 times
+I am called 1116 times
+I am called 1117 times
+I am called 1118 times
+I am called 1119 times
+I am called 1120 times
+I am called 1121 times
+I am called 1122 times
+I am called 1123 times
+I am called 1124 times
+I am called 1125 times
+I am called 1126 times
+I am called 1127 times
+I am called 1128 times
+I am called 1129 times
+I am called 1130 times
+I am called 1131 times
+I am called 1132 times
+I am called 1133 times
+I am called 1134 times
+I am called 1135 times
+I am called 1136 times
+I am called 1137 times
+I am called 1138 times
+I am called 1139 times
+I am called 1140 times
+I am called 1141 times
+I am called 1142 times
+I am called 1143 times
+I am called 1144 times
+I am called 1145 times
+I am called 1146 times
+I am called 1147 times
+I am called 1148 times
+I am called 1149 times
+I am called 1150 times
+I am called 1151 times
+I am called 1152 times
+I am called 1153 times
+I am called 1154 times
+I am called 1155 times
+I am called 1156 times
+I am called 1157 times
+I am called 1158 times
+I am called 1159 times
+I am called 1160 times
+I am called 1161 times
+I am called 1162 times
+I am called 1163 times
+I am called 1164 times
+I am called 1165 times
+I am called 1166 times
+I am called 1167 times
+I am called 1168 times
+I am called 1169 times
+I am called 1170 times
+I am called 1171 times
+I am called 1172 times
+I am called 1173 times
+I am called 1174 times
+I am called 1175 times
+I am called 1176 times
+I am called 1177 times
+I am called 1178 times
+I am called 1179 times
+I am called 1180 times
+I am called 1181 times
+I am called 1182 times
+I am called 1183 times
+I am called 1184 times
+I am called 1185 times
+I am called 1186 times
+I am called 1187 times
+I am called 1188 times
+I am called 1189 times
+I am called 1190 times
+I am called 1191 times
+I am called 1192 times
+I am called 1193 times
+I am called 1194 times
+I am called 1195 times
+I am called 1196 times
+I am called 1197 times
+I am called 1198 times
+I am called 1199 times
+I am called 1200 times
+I am called 1201 times
+I am called 1202 times
+I am called 1203 times
+I am called 1204 times
+I am called 1205 times
+I am called 1206 times
+I am called 1207 times
+I am called 1208 times
+I am called 1209 times
+I am called 1210 times
+I am called 1211 times
+I am called 1212 times
+I am called 1213 times
+I am called 1214 times
+I am called 1215 times
+I am called 1216 times
+I am called 1217 times
+I am called 1218 times
+I am called 1219 times
+I am called 1220 times
+I am called 1221 times
+I am called 1222 times
+I am called 1223 times
+I am called 1224 times
+I am called 1225 times
+I am called 1226 times
+I am called 1227 times
+I am called 1228 times
+I am called 1229 times
+I am called 1230 times
+I am called 1231 times
+I am called 1232 times
+I am called 1233 times
+I am called 1234 times
+I am called 1235 times
+I am called 1236 times
+I am called 1237 times
+I am called 1238 times
+I am called 1239 times
+I am called 1240 times
+I am called 1241 times
+I am called 1242 times
+I am called 1243 times
+I am called 1244 times
+I am called 1245 times
+I am called 1246 times
+I am called 1247 times
+I am called 1248 times
+I am called 1249 times
+I am called 1250 times
+I am called 1251 times
+I am called 1252 times
+I am called 1253 times
+I am called 1254 times
+I am called 1255 times
+I am called 1256 times
+I am called 1257 times
+I am called 1258 times
+I am called 1259 times
+I am called 1260 times
+I am called 1261 times
+I am called 1262 times
+I am called 1263 times
+I am called 1264 times
+I am called 1265 times
+I am called 1266 times
+I am called 1267 times
+I am called 1268 times
+I am called 1269 times
+I am called 1270 times
+I am called 1271 times
+I am called 1272 times
+I am called 1273 times
+I am called 1274 times
+I am called 1275 times
+I am called 1276 times
+I am called 1277 times
+I am called 1278 times
+I am called 1279 times
+I am called 1280 times
+I am called 1281 times
+I am called 1282 times
+I am called 1283 times
+I am called 1284 times
+I am called 1285 times
+I am called 1286 times
+I am called 1287 times
+I am called 1288 times
+I am called 1289 times
+I am called 1290 times
+I am called 1291 times
+I am called 1292 times
+I am called 1293 times
+I am called 1294 times
+I am called 1295 times
+I am called 1296 times
+I am called 1297 times
+I am called 1298 times
+I am called 1299 times
+I am called 1300 times
+I am called 1301 times
+I am called 1302 times
+I am called 1303 times
+I am called 1304 times
+I am called 1305 times
+I am called 1306 times
+I am called 1307 times
+I am called 1308 times
+I am called 1309 times
+I am called 1310 times
+I am called 1311 times
+I am called 1312 times
+I am called 1313 times
+I am called 1314 times
+I am called 1315 times
+I am called 1316 times
+I am called 1317 times
+I am called 1318 times
+I am called 1319 times
+I am called 1320 times
+I am called 1321 times
+I am called 1322 times
+I am called 1323 times
+I am called 1324 times
+I am called 1325 times
+I am called 1326 times
+I am called 1327 times
+I am called 1328 times
+I am called 1329 times
+I am called 1330 times
+I am called 1331 times
+I am called 1332 times
+I am called 1333 times
+I am called 1334 times
+I am called 1335 times
+I am called 1336 times
+I am called 1337 times
+I am called 1338 times
+I am called 1339 times
+I am called 1340 times
+I am called 1341 times
+I am called 1342 times
+I am called 1343 times
+I am called 1344 times
+I am called 1345 times
+I am called 1346 times
+I am called 1347 times
+I am called 1348 times
+I am called 1349 times
+I am called 1350 times
+I am called 1351 times
+I am called 1352 times
+I am called 1353 times
+I am called 1354 times
+I am called 1355 times
+I am called 1356 times
+I am called 1357 times
+I am called 1358 times
+I am called 1359 times
+I am called 1360 times
+I am called 1361 times
+I am called 1362 times
+I am called 1363 times
+I am called 1364 times
+I am called 1365 times
+I am called 1366 times
+I am called 1367 times
+I am called 1368 times
+I am called 1369 times
+I am called 1370 times
+I am called 1371 times
+I am called 1372 times
+I am called 1373 times
+I am called 1374 times
+I am called 1375 times
+I am called 1376 times
+I am called 1377 times
+I am called 1378 times
+I am called 1379 times
+I am called 1380 times
+I am called 1381 times
+I am called 1382 times
+I am called 1383 times
+I am called 1384 times
+I am called 1385 times
+I am called 1386 times
+I am called 1387 times
+I am called 1388 times
+I am called 1389 times
+I am called 1390 times
+I am called 1391 times
+I am called 1392 times
+I am called 1393 times
+I am called 1394 times
+I am called 1395 times
+I am called 1396 times
+I am called 1397 times
+I am called 1398 times
+I am called 1399 times
+I am called 1400 times
+I am called 1401 times
+I am called 1402 times
+I am called 1403 times
+I am called 1404 times
+I am called 1405 times
+I am called 1406 times
+I am called 1407 times
+I am called 1408 times
+I am called 1409 times
+I am called 1410 times
+I am called 1411 times
+I am called 1412 times
+I am called 1413 times
+I am called 1414 times
+I am called 1415 times
+I am called 1416 times
+I am called 1417 times
+I am called 1418 times
+I am called 1419 times
+I am called 1420 times
+I am called 1421 times
+I am called 1422 times
+I am called 1423 times
+I am called 1424 times
+I am called 1425 times
+I am called 1426 times
+I am called 1427 times
+I am called 1428 times
+I am called 1429 times
+I am called 1430 times
+I am called 1431 times
+I am called 1432 times
+I am called 1433 times
+I am called 1434 times
+I am called 1435 times
+I am called 1436 times
+I am called 1437 times
+I am called 1438 times
+I am called 1439 times
+I am called 1440 times
+I am called 1441 times
+I am called 1442 times
+I am called 1443 times
+I am called 1444 times
+I am called 1445 times
+I am called 1446 times
+I am called 1447 times
+I am called 1448 times
+I am called 1449 times
+I am called 1450 times
+I am called 1451 times
+I am called 1452 times
+I am called 1453 times
+I am called 1454 times
+I am called 1455 times
+I am called 1456 times
+I am called 1457 times
+I am called 1458 times
+I am called 1459 times
+I am called 1460 times
+I am called 1461 times
+I am called 1462 times
+I am called 1463 times
+I am called 1464 times
+I am called 1465 times
+I am called 1466 times
+I am called 1467 times
+I am called 1468 times
+I am called 1469 times
+I am called 1470 times
+I am called 1471 times
+I am called 1472 times
+I am called 1473 times
+I am called 1474 times
+I am called 1475 times
+I am called 1476 times
+I am called 1477 times
+I am called 1478 times
+I am called 1479 times
+I am called 1480 times
+I am called 1481 times
+I am called 1482 times
+I am called 1483 times
+I am called 1484 times
+I am called 1485 times
+I am called 1486 times
+I am called 1487 times
+I am called 1488 times
+I am called 1489 times
+I am called 1490 times
+I am called 1491 times
+I am called 1492 times
+I am called 1493 times
+I am called 1494 times
+I am called 1495 times
+I am called 1496 times
+I am called 1497 times
+I am called 1498 times
+I am called 1499 times
+I am called 1500 times
+I am called 1501 times
+I am called 1502 times
+I am called 1503 times
+I am called 1504 times
+I am called 1505 times
+I am called 1506 times
+I am called 1507 times
+I am called 1508 times
+I am called 1509 times
+I am called 1510 times
+I am called 1511 times
+I am called 1512 times
+I am called 1513 times
+I am called 1514 times
+I am called 1515 times
+I am called 1516 times
+I am called 1517 times
+I am called 1518 times
+I am called 1519 times
+I am called 1520 times
+I am called 1521 times
+I am called 1522 times
+I am called 1523 times
+I am called 1524 times
+I am called 1525 times
+I am called 1526 times
+I am called 1527 times
+I am called 1528 times
+I am called 1529 times
+I am called 1530 times
+I am called 1531 times
+I am called 1532 times
+I am called 1533 times
+I am called 1534 times
+I am called 1535 times
+I am called 1536 times
+I am called 1537 times
+I am called 1538 times
+I am called 1539 times
+I am called 1540 times
+I am called 1541 times
+I am called 1542 times
+I am called 1543 times
+I am called 1544 times
+I am called 1545 times
+I am called 1546 times
+I am called 1547 times
+I am called 1548 times
+I am called 1549 times
+I am called 1550 times
+I am called 1551 times
+I am called 1552 times
+I am called 1553 times
+I am called 1554 times
+I am called 1555 times
+I am called 1556 times
+I am called 1557 times
+I am called 1558 times
+I am called 1559 times
+I am called 1560 times
+I am called 1561 times
+I am called 1562 times
+I am called 1563 times
+I am called 1564 times
+I am called 1565 times
+I am called 1566 times
+I am called 1567 times
+I am called 1568 times
+I am called 1569 times
+I am called 1570 times
+I am called 1571 times
+I am called 1572 times
+I am called 1573 times
+I am called 1574 times
+I am called 1575 times
+I am called 1576 times
+I am called 1577 times
+I am called 1578 times
+I am called 1579 times
+I am called 1580 times
+I am called 1581 times
+I am called 1582 times
+I am called 1583 times
+I am called 1584 times
+I am called 1585 times
+I am called 1586 times
+I am called 1587 times
+I am called 1588 times
+I am called 1589 times
+I am called 1590 times
+I am called 1591 times
+I am called 1592 times
+I am called 1593 times
+I am called 1594 times
+I am called 1595 times
+I am called 1596 times
+I am called 1597 times
+I am called 1598 times
+I am called 1599 times
+I am called 1600 times
+I am called 1601 times
+I am called 1602 times
+I am called 1603 times
+I am called 1604 times
+I am called 1605 times
+I am called 1606 times
+I am called 1607 times
+I am called 1608 times
+I am called 1609 times
+I am called 1610 times
+I am called 1611 times
+I am called 1612 times
+I am called 1613 times
+I am called 1614 times
+I am called 1615 times
+I am called 1616 times
+I am called 1617 times
+I am called 1618 times
+I am called 1619 times
+I am called 1620 times
+I am called 1621 times
+I am called 1622 times
+I am called 1623 times
+I am called 1624 times
+I am called 1625 times
+I am called 1626 times
+I am called 1627 times
+I am called 1628 times
+I am called 1629 times
+I am called 1630 times
+I am called 1631 times
+I am called 1632 times
+I am called 1633 times
+I am called 1634 times
+I am called 1635 times
+I am called 1636 times
+I am called 1637 times
+I am called 1638 times
+I am called 1639 times
+I am called 1640 times
+I am called 1641 times
+I am called 1642 times
+I am called 1643 times
+I am called 1644 times
+I am called 1645 times
+I am called 1646 times
+I am called 1647 times
+I am called 1648 times
+I am called 1649 times
+I am called 1650 times
+I am called 1651 times
+I am called 1652 times
+I am called 1653 times
+I am called 1654 times
+I am called 1655 times
+I am called 1656 times
+I am called 1657 times
+I am called 1658 times
+I am called 1659 times
+I am called 1660 times
+I am called 1661 times
+I am called 1662 times
+I am called 1663 times
+I am called 1664 times
+I am called 1665 times
+I am called 1666 times
+I am called 1667 times
+I am called 1668 times
+I am called 1669 times
+I am called 1670 times
+I am called 1671 times
+I am called 1672 times
+I am called 1673 times
+I am called 1674 times
+I am called 1675 times
+I am called 1676 times
+I am called 1677 times
+I am called 1678 times
+I am called 1679 times
+I am called 1680 times
+I am called 1681 times
+I am called 1682 times
+I am called 1683 times
+I am called 1684 times
+I am called 1685 times
+I am called 1686 times
+I am called 1687 times
+I am called 1688 times
+I am called 1689 times
+I am called 1690 times
+I am called 1691 times
+I am called 1692 times
+I am called 1693 times
+I am called 1694 times
+I am called 1695 times
+I am called 1696 times
+I am called 1697 times
+I am called 1698 times
+I am called 1699 times
+I am called 1700 times
+I am called 1701 times
+I am called 1702 times
+I am called 1703 times
+I am called 1704 times
+I am called 1705 times
+I am called 1706 times
+I am called 1707 times
+I am called 1708 times
+I am called 1709 times
+I am called 1710 times
+I am called 1711 times
+I am called 1712 times
+I am called 1713 times
+I am called 1714 times
+I am called 1715 times
+I am called 1716 times
+I am called 1717 times
+I am called 1718 times
+I am called 1719 times
+I am called 1720 times
+I am called 1721 times
+I am called 1722 times
+I am called 1723 times
+I am called 1724 times
+I am called 1725 times
+I am called 1726 times
+I am called 1727 times
+I am called 1728 times
+I am called 1729 times
+I am called 1730 times
+I am called 1731 times
+I am called 1732 times
+I am called 1733 times
+I am called 1734 times
+I am called 1735 times
+I am called 1736 times
+I am called 1737 times
+I am called 1738 times
+I am called 1739 times
+I am called 1740 times
+I am called 1741 times
+I am called 1742 times
+I am called 1743 times
+I am called 1744 times
+I am called 1745 times
+I am called 1746 times
+I am called 1747 times
+I am called 1748 times
+I am called 1749 times
+I am called 1750 times
+I am called 1751 times
+I am called 1752 times
+I am called 1753 times
+I am called 1754 times
+I am called 1755 times
+I am called 1756 times
+I am called 1757 times
+I am called 1758 times
+I am called 1759 times
+I am called 1760 times
+I am called 1761 times
+I am called 1762 times
+I am called 1763 times
+I am called 1764 times
+I am called 1765 times
+I am called 1766 times
+I am called 1767 times
+I am called 1768 times
+I am called 1769 times
+I am called 1770 times
+I am called 1771 times
+I am called 1772 times
+I am called 1773 times
+I am called 1774 times
+I am called 1775 times
+I am called 1776 times
+I am called 1777 times
+I am called 1778 times
+I am called 1779 times
+I am called 1780 times
+I am called 1781 times
+I am called 1782 times
+I am called 1783 times
+I am called 1784 times
+I am called 1785 times
+I am called 1786 times
+I am called 1787 times
+I am called 1788 times
+I am called 1789 times
+I am called 1790 times
+I am called 1791 times
+I am called 1792 times
+I am called 1793 times
+I am called 1794 times
+I am called 1795 times
+I am called 1796 times
+I am called 1797 times
+I am called 1798 times
+I am called 1799 times
+I am called 1800 times
+I am called 1801 times
+I am called 1802 times
+I am called 1803 times
+I am called 1804 times
+I am called 1805 times
+I am called 1806 times
+I am called 1807 times
+I am called 1808 times
+I am called 1809 times
+I am called 1810 times
+I am called 1811 times
+I am called 1812 times
+I am called 1813 times
+I am called 1814 times
+I am called 1815 times
+I am called 1816 times
+I am called 1817 times
+I am called 1818 times
+I am called 1819 times
+I am called 1820 times
+I am called 1821 times
+I am called 1822 times
+I am called 1823 times
+I am called 1824 times
+I am called 1825 times
+I am called 1826 times
+I am called 1827 times
+I am called 1828 times
+I am called 1829 times
+I am called 1830 times
+I am called 1831 times
+I am called 1832 times
+I am called 1833 times
+I am called 1834 times
+I am called 1835 times
+I am called 1836 times
+I am called 1837 times
+I am called 1838 times
+I am called 1839 times
+I am called 1840 times
+I am called 1841 times
+I am called 1842 times
+I am called 1843 times
+I am called 1844 times
+I am called 1845 times
+I am called 1846 times
+I am called 1847 times
+I am called 1848 times
+I am called 1849 times
+I am called 1850 times
+I am called 1851 times
+I am called 1852 times
+I am called 1853 times
+I am called 1854 times
+I am called 1855 times
+I am called 1856 times
+I am called 1857 times
+I am called 1858 times
+I am called 1859 times
+I am called 1860 times
+I am called 1861 times
+I am called 1862 times
+I am called 1863 times
+I am called 1864 times
+I am called 1865 times
+I am called 1866 times
+I am called 1867 times
+I am called 1868 times
+I am called 1869 times
+I am called 1870 times
+I am called 1871 times
+I am called 1872 times
+I am called 1873 times
+I am called 1874 times
+I am called 1875 times
+I am called 1876 times
+I am called 1877 times
+I am called 1878 times
+I am called 1879 times
+I am called 1880 times
+I am called 1881 times
+I am called 1882 times
+I am called 1883 times
+I am called 1884 times
+I am called 1885 times
+I am called 1886 times
+I am called 1887 times
+I am called 1888 times
+I am called 1889 times
+I am called 1890 times
+I am called 1891 times
+I am called 1892 times
+I am called 1893 times
+I am called 1894 times
+I am called 1895 times
+I am called 1896 times
+I am called 1897 times
+I am called 1898 times
+I am called 1899 times
+I am called 1900 times
+I am called 1901 times
+I am called 1902 times
+I am called 1903 times
+I am called 1904 times
+I am called 1905 times
+I am called 1906 times
+I am called 1907 times
+I am called 1908 times
+I am called 1909 times
+I am called 1910 times
+I am called 1911 times
+I am called 1912 times
+I am called 1913 times
+I am called 1914 times
+I am called 1915 times
+I am called 1916 times
+I am called 1917 times
+I am called 1918 times
+I am called 1919 times
+I am called 1920 times
+I am called 1921 times
+I am called 1922 times
+I am called 1923 times
+I am called 1924 times
+I am called 1925 times
+I am called 1926 times
+I am called 1927 times
+I am called 1928 times
+I am called 1929 times
+I am called 1930 times
+I am called 1931 times
+I am called 1932 times
+I am called 1933 times
+I am called 1934 times
+I am called 1935 times
+I am called 1936 times
+I am called 1937 times
+I am called 1938 times
+I am called 1939 times
+I am called 1940 times
+I am called 1941 times
+I am called 1942 times
+I am called 1943 times
+I am called 1944 times
+I am called 1945 times
+I am called 1946 times
+I am called 1947 times
+I am called 1948 times
+I am called 1949 times
+I am called 1950 times
+I am called 1951 times
+I am called 1952 times
+I am called 1953 times
+I am called 1954 times
+I am called 1955 times
+I am called 1956 times
+I am called 1957 times
+I am called 1958 times
+I am called 1959 times
+I am called 1960 times
+I am called 1961 times
+I am called 1962 times
+I am called 1963 times
+I am called 1964 times
+I am called 1965 times
+I am called 1966 times
+I am called 1967 times
+I am called 1968 times
+I am called 1969 times
+I am called 1970 times
+I am called 1971 times
+I am called 1972 times
+I am called 1973 times
+I am called 1974 times
+I am called 1975 times
+I am called 1976 times
+I am called 1977 times
+I am called 1978 times
+I am called 1979 times
+I am called 1980 times
+I am called 1981 times
+I am called 1982 times
+I am called 1983 times
+I am called 1984 times
+I am called 1985 times
+I am called 1986 times
+I am called 1987 times
+I am called 1988 times
+I am called 1989 times
+I am called 1990 times
+I am called 1991 times
+I am called 1992 times
+I am called 1993 times
+I am called 1994 times
+I am called 1995 times
+I am called 1996 times
+I am called 1997 times
+I am called 1998 times
+I am called 1999 times
+I am called 2000 times
+I am called 2001 times
+I am called 2002 times
+I am called 2003 times
+I am called 2004 times
+I am called 2005 times
+I am called 2006 times
+I am called 2007 times
+I am called 2008 times
+I am called 2009 times
+I am called 2010 times
+I am called 2011 times
+I am called 2012 times
+I am called 2013 times
+I am called 2014 times
+I am called 2015 times
+I am called 2016 times
+I am called 2017 times
+I am called 2018 times
+I am called 2019 times
+I am called 2020 times
+I am called 2021 times
+I am called 2022 times
+I am called 2023 times
+I am called 2024 times
+I am called 2025 times
+I am called 2026 times
+I am called 2027 times
+I am called 2028 times
+I am called 2029 times
+I am called 2030 times
+I am called 2031 times
+I am called 2032 times
+I am called 2033 times
+I am called 2034 times
+I am called 2035 times
+I am called 2036 times
+I am called 2037 times
+I am called 2038 times
+I am called 2039 times
+I am called 2040 times
+I am called 2041 times
+I am called 2042 times
+I am called 2043 times
+I am called 2044 times
+I am called 2045 times
+I am called 2046 times
+I am called 2047 times
+I am called 2048 times
+I am called 2049 times
+I am called 2050 times
+I am called 2051 times
+I am called 2052 times
+I am called 2053 times
+I am called 2054 times
+I am called 2055 times
+I am called 2056 times
+I am called 2057 times
+I am called 2058 times
+I am called 2059 times
+I am called 2060 times
+I am called 2061 times
+I am called 2062 times
+I am called 2063 times
+I am called 2064 times
+I am called 2065 times
+I am called 2066 times
+I am called 2067 times
+I am called 2068 times
+I am called 2069 times
+I am called 2070 times
+I am called 2071 times
+I am called 2072 times
+I am called 2073 times
+I am called 2074 times
+I am called 2075 times
+I am called 2076 times
+I am called 2077 times
+I am called 2078 times
+I am called 2079 times
+I am called 2080 times
+I am called 2081 times
+I am called 2082 times
+I am called 2083 times
+I am called 2084 times
+I am called 2085 times
+I am called 2086 times
+I am called 2087 times
+I am called 2088 times
+I am called 2089 times
+I am called 2090 times
+I am called 2091 times
+I am called 2092 times
+I am called 2093 times
+I am called 2094 times
+I am called 2095 times
+I am called 2096 times
+I am called 2097 times
+I am called 2098 times
+I am called 2099 times
+I am called 2100 times
+I am called 2101 times
+I am called 2102 times
+I am called 2103 times
+I am called 2104 times
+I am called 2105 times
+I am called 2106 times
+I am called 2107 times
+I am called 2108 times
+I am called 2109 times
+I am called 2110 times
+I am called 2111 times
+I am called 2112 times
+I am called 2113 times
+I am called 2114 times
+I am called 2115 times
+I am called 2116 times
+I am called 2117 times
+I am called 2118 times
+I am called 2119 times
+I am called 2120 times
+I am called 2121 times
+I am called 2122 times
+I am called 2123 times
+I am called 2124 times
+I am called 2125 times
+I am called 2126 times
+I am called 2127 times
+I am called 2128 times
+I am called 2129 times
+I am called 2130 times
+I am called 2131 times
+I am called 2132 times
+I am called 2133 times
+I am called 2134 times
+I am called 2135 times
+I am called 2136 times
+I am called 2137 times
+I am called 2138 times
+I am called 2139 times
+I am called 2140 times
+I am called 2141 times
+I am called 2142 times
+I am called 2143 times
+I am called 2144 times
+I am called 2145 times
+I am called 2146 times
+I am called 2147 times
+I am called 2148 times
+I am called 2149 times
+I am called 2150 times
+I am called 2151 times
+I am called 2152 times
+I am called 2153 times
+I am called 2154 times
+I am called 2155 times
+I am called 2156 times
+I am called 2157 times
+I am called 2158 times
+I am called 2159 times
+I am called 2160 times
+I am called 2161 times
+I am called 2162 times
+I am called 2163 times
+I am called 2164 times
+I am called 2165 times
+I am called 2166 times
+I am called 2167 times
+I am called 2168 times
+I am called 2169 times
+I am called 2170 times
+I am called 2171 times
+I am called 2172 times
+I am called 2173 times
+I am called 2174 times
+I am called 2175 times
+I am called 2176 times
+I am called 2177 times
+I am called 2178 times
+I am called 2179 times
+I am called 2180 times
+I am called 2181 times
+I am called 2182 times
+I am called 2183 times
+I am called 2184 times
+I am called 2185 times
+I am called 2186 times
+I am called 2187 times
+I am called 2188 times
+I am called 2189 times
+I am called 2190 times
+I am called 2191 times
+I am called 2192 times
+I am called 2193 times
+I am called 2194 times
+I am called 2195 times
+I am called 2196 times
+I am called 2197 times
+I am called 2198 times
+I am called 2199 times
+I am called 2200 times
+I am called 2201 times
+I am called 2202 times
+I am called 2203 times
+I am called 2204 times
+I am called 2205 times
+I am called 2206 times
+I am called 2207 times
+I am called 2208 times
+I am called 2209 times
+I am called 2210 times
+I am called 2211 times
+I am called 2212 times
+I am called 2213 times
+I am called 2214 times
+I am called 2215 times
+I am called 2216 times
+I am called 2217 times
+I am called 2218 times
+I am called 2219 times
+I am called 2220 times
+I am called 2221 times
+I am called 2222 times
+I am called 2223 times
+I am called 2224 times
+I am called 2225 times
+I am called 2226 times
+I am called 2227 times
+I am called 2228 times
+I am called 2229 times
+I am called 2230 times
+I am called 2231 times
+I am called 2232 times
+I am called 2233 times
+I am called 2234 times
+I am called 2235 times
+I am called 2236 times
+I am called 2237 times
+I am called 2238 times
+I am called 2239 times
+I am called 2240 times
+I am called 2241 times
+I am called 2242 times
+I am called 2243 times
+I am called 2244 times
+I am called 2245 times
+I am called 2246 times
+I am called 2247 times
+I am called 2248 times
+I am called 2249 times
+I am called 2250 times
+I am called 2251 times
+I am called 2252 times
+I am called 2253 times
+I am called 2254 times
+I am called 2255 times
+I am called 2256 times
+I am called 2257 times
+I am called 2258 times
+I am called 2259 times
+I am called 2260 times
+I am called 2261 times
+I am called 2262 times
+I am called 2263 times
+I am called 2264 times
+I am called 2265 times
+I am called 2266 times
+I am called 2267 times
+I am called 2268 times
+I am called 2269 times
+I am called 2270 times
+I am called 2271 times
+I am called 2272 times
+I am called 2273 times
+I am called 2274 times
+I am called 2275 times
+I am called 2276 times
+I am called 2277 times
+I am called 2278 times
+I am called 2279 times
+I am called 2280 times
+I am called 2281 times
+I am called 2282 times
+I am called 2283 times
+I am called 2284 times
+I am called 2285 times
+I am called 2286 times
+I am called 2287 times
+I am called 2288 times
+I am called 2289 times
+I am called 2290 times
+I am called 2291 times
+I am called 2292 times
+I am called 2293 times
+I am called 2294 times
+I am called 2295 times
+I am called 2296 times
+I am called 2297 times
+I am called 2298 times
+I am called 2299 times
+I am called 2300 times
+I am called 2301 times
+I am called 2302 times
+I am called 2303 times
+I am called 2304 times
+I am called 2305 times
+I am called 2306 times
+I am called 2307 times
+I am called 2308 times
+I am called 2309 times
+I am called 2310 times
+I am called 2311 times
+I am called 2312 times
+I am called 2313 times
+I am called 2314 times
+I am called 2315 times
+I am called 2316 times
+I am called 2317 times
+I am called 2318 times
+I am called 2319 times
+I am called 2320 times
+I am called 2321 times
+I am called 2322 times
+I am called 2323 times
+I am called 2324 times
+I am called 2325 times
+I am called 2326 times
+I am called 2327 times
+I am called 2328 times
+I am called 2329 times
+I am called 2330 times
+I am called 2331 times
+I am called 2332 times
+I am called 2333 times
+I am called 2334 times
+I am called 2335 times
+I am called 2336 times
+I am called 2337 times
+I am called 2338 times
+I am called 2339 times
+I am called 2340 times
+I am called 2341 times
+I am called 2342 times
+I am called 2343 times
+I am called 2344 times
+I am called 2345 times
+I am called 2346 times
+I am called 2347 times
+I am called 2348 times
+I am called 2349 times
+I am called 2350 times
+I am called 2351 times
+I am called 2352 times
+I am called 2353 times
+I am called 2354 times
+I am called 2355 times
+I am called 2356 times
+I am called 2357 times
+I am called 2358 times
+I am called 2359 times
+I am called 2360 times
+I am called 2361 times
+I am called 2362 times
+I am called 2363 times
+I am called 2364 times
+I am called 2365 times
+I am called 2366 times
+I am called 2367 times
+I am called 2368 times
+I am called 2369 times
+I am called 2370 times
+I am called 2371 times
+I am called 2372 times
+I am called 2373 times
+I am called 2374 times
+I am called 2375 times
+I am called 2376 times
+I am called 2377 times
+I am called 2378 times
+I am called 2379 times
+I am called 2380 times
+I am called 2381 times
+I am called 2382 times
+I am called 2383 times
+I am called 2384 times
+I am called 2385 times
+I am called 2386 times
+I am called 2387 times
+I am called 2388 times
+I am called 2389 times
+I am called 2390 times
+I am called 2391 times
+I am called 2392 times
+I am called 2393 times
+I am called 2394 times
+I am called 2395 times
+I am called 2396 times
+I am called 2397 times
+I am called 2398 times
+I am called 2399 times
+I am called 2400 times
+I am called 2401 times
+I am called 2402 times
+I am called 2403 times
+I am called 2404 times
+I am called 2405 times
+I am called 2406 times
+I am called 2407 times
+I am called 2408 times
+I am called 2409 times
+I am called 2410 times
+I am called 2411 times
+I am called 2412 times
+I am called 2413 times
+I am called 2414 times
+I am called 2415 times
+I am called 2416 times
+I am called 2417 times
+I am called 2418 times
+I am called 2419 times
+I am called 2420 times
+I am called 2421 times
+I am called 2422 times
+I am called 2423 times
+I am called 2424 times
+I am called 2425 times
+I am called 2426 times
+I am called 2427 times
+I am called 2428 times
+I am called 2429 times
+I am called 2430 times
+I am called 2431 times
+I am called 2432 times
+I am called 2433 times
+I am called 2434 times
+I am called 2435 times
+I am called 2436 times
+I am called 2437 times
+I am called 2438 times
+I am called 2439 times
+I am called 2440 times
+I am called 2441 times
+I am called 2442 times
+I am called 2443 times
+I am called 2444 times
+I am called 2445 times
+I am called 2446 times
+I am called 2447 times
+I am called 2448 times
+I am called 2449 times
+I am called 2450 times
+I am called 2451 times
+I am called 2452 times
+I am called 2453 times
+I am called 2454 times
+I am called 2455 times
+I am called 2456 times
+I am called 2457 times
+I am called 2458 times
+I am called 2459 times
+I am called 2460 times
+I am called 2461 times
+I am called 2462 times
+I am called 2463 times
+I am called 2464 times
+I am called 2465 times
+I am called 2466 times
+I am called 2467 times
+I am called 2468 times
+I am called 2469 times
+I am called 2470 times
+I am called 2471 times
+I am called 2472 times
+I am called 2473 times
+I am called 2474 times
+I am called 2475 times
+I am called 2476 times
+I am called 2477 times
+I am called 2478 times
+I am called 2479 times
+I am called 2480 times
+I am called 2481 times
+I am called 2482 times
+I am called 2483 times
+I am called 2484 times
+I am called 2485 times
+I am called 2486 times
+I am called 2487 times
+I am called 2488 times
+I am called 2489 times
+I am called 2490 times
+I am called 2491 times
+I am called 2492 times
+I am called 2493 times
+I am called 2494 times
+I am called 2495 times
+I am called 2496 times
+I am called 2497 times
+I am called 2498 times
+I am called 2499 times
+I am called 2500 times
+I am called 2501 times
+I am called 2502 times
+I am called 2503 times
+I am called 2504 times
+I am called 2505 times
+I am called 2506 times
+I am called 2507 times
+I am called 2508 times
+I am called 2509 times
+I am called 2510 times
+I am called 2511 times
+I am called 2512 times
+I am called 2513 times
+I am called 2514 times
+I am called 2515 times
+I am called 2516 times
+I am called 2517 times
+I am called 2518 times
+I am called 2519 times
+I am called 2520 times
+I am called 2521 times
+I am called 2522 times
+I am called 2523 times
+I am called 2524 times
+I am called 2525 times
+I am called 2526 times
+I am called 2527 times
+I am called 2528 times
+I am called 2529 times
+I am called 2530 times
+I am called 2531 times
+I am called 2532 times
+I am called 2533 times
+I am called 2534 times
+I am called 2535 times
+I am called 2536 times
+I am called 2537 times
+I am called 2538 times
+I am called 2539 times
+I am called 2540 times
+I am called 2541 times
+I am called 2542 times
+I am called 2543 times
+I am called 2544 times
+I am called 2545 times
+I am called 2546 times
+I am called 2547 times
+I am called 2548 times
+I am called 2549 times
+I am called 2550 times
+I am called 2551 times
+I am called 2552 times
+I am called 2553 times
+I am called 2554 times
+I am called 2555 times
+I am called 2556 times
+I am called 2557 times
+I am called 2558 times
+I am called 2559 times
+I am called 2560 times
+I am called 2561 times
+I am called 2562 times
+I am called 2563 times
+I am called 2564 times
+I am called 2565 times
+I am called 2566 times
+I am called 2567 times
+I am called 2568 times
+I am called 2569 times
+I am called 2570 times
+I am called 2571 times
+I am called 2572 times
+I am called 2573 times
+I am called 2574 times
+I am called 2575 times
+I am called 2576 times
+I am called 2577 times
+I am called 2578 times
+I am called 2579 times
+I am called 2580 times
+I am called 2581 times
+I am called 2582 times
+I am called 2583 times
+I am called 2584 times
+I am called 2585 times
+I am called 2586 times
+I am called 2587 times
+I am called 2588 times
+I am called 2589 times
+I am called 2590 times
+I am called 2591 times
+I am called 2592 times
+I am called 2593 times
+I am called 2594 times
+I am called 2595 times
+I am called 2596 times
+I am called 2597 times
+I am called 2598 times
+I am called 2599 times
+I am called 2600 times
+I am called 2601 times
+I am called 2602 times
+I am called 2603 times
+I am called 2604 times
+I am called 2605 times
+I am called 2606 times
+I am called 2607 times
+I am called 2608 times
+I am called 2609 times
+I am called 2610 times
+I am called 2611 times
+I am called 2612 times
+I am called 2613 times
+I am called 2614 times
+I am called 2615 times
+I am called 2616 times
+I am called 2617 times
+I am called 2618 times
+I am called 2619 times
+I am called 2620 times
+I am called 2621 times
+I am called 2622 times
+I am called 2623 times
+I am called 2624 times
+I am called 2625 times
+I am called 2626 times
+I am called 2627 times
+I am called 2628 times
+I am called 2629 times
+I am called 2630 times
+I am called 2631 times
+I am called 2632 times
+I am called 2633 times
+I am called 2634 times
+I am called 2635 times
+I am called 2636 times
+I am called 2637 times
+I am called 2638 times
+I am called 2639 times
+I am called 2640 times
+I am called 2641 times
+I am called 2642 times
+I am called 2643 times
+I am called 2644 times
+I am called 2645 times
+I am called 2646 times
+I am called 2647 times
+I am called 2648 times
+I am called 2649 times
+I am called 2650 times
+I am called 2651 times
+I am called 2652 times
+I am called 2653 times
+I am called 2654 times
+I am called 2655 times
+I am called 2656 times
+I am called 2657 times
+I am called 2658 times
+I am called 2659 times
+I am called 2660 times
+I am called 2661 times
+I am called 2662 times
+I am called 2663 times
+I am called 2664 times
+I am called 2665 times
+I am called 2666 times
+I am called 2667 times
+I am called 2668 times
+I am called 2669 times
+I am called 2670 times
+I am called 2671 times
+I am called 2672 times
+I am called 2673 times
+I am called 2674 times
+I am called 2675 times
+I am called 2676 times
+I am called 2677 times
+I am called 2678 times
+I am called 2679 times
+I am called 2680 times
+I am called 2681 times
+I am called 2682 times
+I am called 2683 times
+I am called 2684 times
+I am called 2685 times
+I am called 2686 times
+I am called 2687 times
+I am called 2688 times
+I am called 2689 times
+I am called 2690 times
+I am called 2691 times
+I am called 2692 times
+I am called 2693 times
+I am called 2694 times
+I am called 2695 times
+I am called 2696 times
+I am called 2697 times
+I am called 2698 times
+I am called 2699 times
+I am called 2700 times
+I am called 2701 times
+I am called 2702 times
+I am called 2703 times
+I am called 2704 times
+I am called 2705 times
+I am called 2706 times
+I am called 2707 times
+I am called 2708 times
+I am called 2709 times
+I am called 2710 times
+I am called 2711 times
+I am called 2712 times
+I am called 2713 times
+I am called 2714 times
+I am called 2715 times
+I am called 2716 times
+I am called 2717 times
+I am called 2718 times
+I am called 2719 times
+I am called 2720 times
+I am called 2721 times
+I am called 2722 times
+I am called 2723 times
+I am called 2724 times
+I am called 2725 times
+I am called 2726 times
+I am called 2727 times
+I am called 2728 times
+I am called 2729 times
+I am called 2730 times
+I am called 2731 times
+I am called 2732 times
+I am called 2733 times
+I am called 2734 times
+I am called 2735 times
+I am called 2736 times
+I am called 2737 times
+I am called 2738 times
+I am called 2739 times
+I am called 2740 times
+I am called 2741 times
+I am called 2742 times
+I am called 2743 times
+I am called 2744 times
+I am called 2745 times
+I am called 2746 times
+I am called 2747 times
+I am called 2748 times
+I am called 2749 times
+I am called 2750 times
+I am called 2751 times
+I am called 2752 times
+I am called 2753 times
+I am called 2754 times
+I am called 2755 times
+I am called 2756 times
+I am called 2757 times
+I am called 2758 times
+I am called 2759 times
+I am called 2760 times
+I am called 2761 times
+I am called 2762 times
+I am called 2763 times
+I am called 2764 times
+I am called 2765 times
+I am called 2766 times
+I am called 2767 times
+I am called 2768 times
+I am called 2769 times
+I am called 2770 times
+I am called 2771 times
+I am called 2772 times
+I am called 2773 times
+I am called 2774 times
+I am called 2775 times
+I am called 2776 times
+I am called 2777 times
+I am called 2778 times
+I am called 2779 times
+I am called 2780 times
+I am called 2781 times
+I am called 2782 times
+I am called 2783 times
+I am called 2784 times
+I am called 2785 times
+I am called 2786 times
+I am called 2787 times
+I am called 2788 times
+I am called 2789 times
+I am called 2790 times
+I am called 2791 times
+I am called 2792 times
+I am called 2793 times
+I am called 2794 times
+I am called 2795 times
+I am called 2796 times
+I am called 2797 times
+I am called 2798 times
+I am called 2799 times
+I am called 2800 times
+I am called 2801 times
+I am called 2802 times
+I am called 2803 times
+I am called 2804 times
+I am called 2805 times
+I am called 2806 times
+I am called 2807 times
+I am called 2808 times
+I am called 2809 times
+I am called 2810 times
+I am called 2811 times
+I am called 2812 times
+I am called 2813 times
+I am called 2814 times
+I am called 2815 times
+I am called 2816 times
+I am called 2817 times
+I am called 2818 times
+I am called 2819 times
+I am called 2820 times
+I am called 2821 times
+I am called 2822 times
+I am called 2823 times
+I am called 2824 times
+I am called 2825 times
+I am called 2826 times
+I am called 2827 times
+I am called 2828 times
+I am called 2829 times
+I am called 2830 times
+I am called 2831 times
+I am called 2832 times
+I am called 2833 times
+I am called 2834 times
+I am called 2835 times
+I am called 2836 times
+I am called 2837 times
+I am called 2838 times
+I am called 2839 times
+I am called 2840 times
+I am called 2841 times
+I am called 2842 times
+I am called 2843 times
+I am called 2844 times
+I am called 2845 times
+I am called 2846 times
+I am called 2847 times
+I am called 2848 times
+I am called 2849 times
+I am called 2850 times
+I am called 2851 times
+I am called 2852 times
+I am called 2853 times
+I am called 2854 times
+I am called 2855 times
+I am called 2856 times
+I am called 2857 times
+I am called 2858 times
+I am called 2859 times
+I am called 2860 times
+I am called 2861 times
+I am called 2862 times
+I am called 2863 times
+I am called 2864 times
+I am called 2865 times
+I am called 2866 times
+I am called 2867 times
+I am called 2868 times
+I am called 2869 times
+I am called 2870 times
+I am called 2871 times
+I am called 2872 times
+I am called 2873 times
+I am called 2874 times
+I am called 2875 times
+I am called 2876 times
+I am called 2877 times
+I am called 2878 times
+I am called 2879 times
+I am called 2880 times
+I am called 2881 times
+I am called 2882 times
+I am called 2883 times
+I am called 2884 times
+I am called 2885 times
+I am called 2886 times
+I am called 2887 times
+I am called 2888 times
+I am called 2889 times
+I am called 2890 times
+I am called 2891 times
+I am called 2892 times
+I am called 2893 times
+I am called 2894 times
+I am called 2895 times
+I am called 2896 times
+I am called 2897 times
+I am called 2898 times
+I am called 2899 times
+I am called 2900 times
+I am called 2901 times
+I am called 2902 times
+I am called 2903 times
+I am called 2904 times
+I am called 2905 times
+I am called 2906 times
+I am called 2907 times
+I am called 2908 times
+I am called 2909 times
+I am called 2910 times
+I am called 2911 times
+I am called 2912 times
+I am called 2913 times
+I am called 2914 times
+I am called 2915 times
+I am called 2916 times
+I am called 2917 times
+I am called 2918 times
+I am called 2919 times
+I am called 2920 times
+I am called 2921 times
+I am called 2922 times
+I am called 2923 times
+I am called 2924 times
+I am called 2925 times
+I am called 2926 times
+I am called 2927 times
+I am called 2928 times
+I am called 2929 times
+I am called 2930 times
+I am called 2931 times
+I am called 2932 times
+I am called 2933 times
+I am called 2934 times
+I am called 2935 times
+I am called 2936 times
+I am called 2937 times
+I am called 2938 times
+I am called 2939 times
+I am called 2940 times
+I am called 2941 times
+I am called 2942 times
+I am called 2943 times
+I am called 2944 times
+I am called 2945 times
+I am called 2946 times
+I am called 2947 times
+I am called 2948 times
+I am called 2949 times
+I am called 2950 times
+I am called 2951 times
+I am called 2952 times
+I am called 2953 times
+I am called 2954 times
+I am called 2955 times
+I am called 2956 times
+I am called 2957 times
+I am called 2958 times
+I am called 2959 times
+I am called 2960 times
+I am called 2961 times
+I am called 2962 times
+I am called 2963 times
+I am called 2964 times
+I am called 2965 times
+I am called 2966 times
+I am called 2967 times
+I am called 2968 times
+I am called 2969 times
+I am called 2970 times
+I am called 2971 times
+I am called 2972 times
+I am called 2973 times
+I am called 2974 times
+
+Caught a RecursionError: maximum recursion depth exceeded
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="others">
+<h2>Others<a class="headerlink" href="#others" title="Link to this heading">#</a></h2>
+<section id="f-strings">
+<h3>f-strings<a class="headerlink" href="#f-strings" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1: Adding a variable to a string</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Amna&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Welcome to the park, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Welcome to the park, Amna!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="list-comprehension">
+<h3>List Comprehension<a class="headerlink" href="#list-comprehension" title="Link to this heading">#</a></h3>
+<p>With a list comprehension, we can condense our code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="s2">&quot;Love&quot;</span><span class="p">,</span> <span class="s2">&quot;Yogurt!&quot;</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="c1"># Output: [&#39;Yogurt!&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Yogurt!&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dictionary-comprehensions">
+<h3>Dictionary Comprehensions<a class="headerlink" href="#dictionary-comprehensions" title="Link to this heading">#</a></h3>
+<p>Just as we can create lists based on values in other lists using a list comprehension, we can create new dictionaries based off of values in other dictionaries, lists or strings.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1: Map Integers to Their Square</span>
+<span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">squares</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">squares</span><span class="p">)</span> <span class="c1"># {1: 1, 2: 4, 3: 9, 4: 16, 5: 25, 6: 36}</span>
+
+<span class="c1"># Example 2: Converting List of Tuples to a Dictionary</span>
+<span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<span class="n">dictionary</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>
+
+<span class="c1"># Exmaple 3: Even Squares:</span>
+<span class="n">even_squares</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">even_squares</span><span class="p">)</span> <span class="c1"># {2: 4, 4: 16, 6: 36, 8: 64, 10: 100}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{1: 1, 2: 4, 3: 9, 4: 16, 5: 25, 6: 36}
+{&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;c&#39;: 3}
+{2: 4, 4: 16, 6: 36, 8: 64, 10: 100}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ternary-operator">
+<h3>ternary operator<a class="headerlink" href="#ternary-operator" title="Link to this heading">#</a></h3>
+<p>It is special shorthand syntax that allows us to write simple if-else conditions on a single line.</p>
+<ul class="simple">
+<li><p>value_if_true if condition else value_if_false</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">20</span>
+
+<span class="c1"># ternary operator</span>
+<span class="n">max_value</span> <span class="o">=</span> <span class="n">a</span> <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="k">else</span> <span class="n">b</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">max_value</span><span class="p">)</span>
+
+<span class="c1"># normal conditional syntax</span>
+<span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
+    <span class="n">max_value</span> <span class="o">=</span> <span class="n">a</span>
+<span class="k">else</span><span class="p">:</span> 
+    <span class="n">max_value</span> <span class="o">=</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>20
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Chapter%201-%20Python%20Collections.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Python Collections</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Chapter%203-%20Big-O%20Analysis.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 3: Big-O Analysis</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#built-in-functions">Built-in Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerate-x">Enumerate(x)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zip">Zip</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorted-iterable-key-len">sorted(iterable, key=len)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-arg1-arg2-etc-expression">lambda arg1, arg2, etc. : expression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type-conversions">Type Conversions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#float-inf">float(“inf”)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#round-number-decimal">round(number, decimal)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#abs-number">abs(number)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#range-start-stop-step">range(start, stop, step)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-except">try-except</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#others">Others</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-strings">f-strings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehension">List Comprehension</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionary-comprehensions">Dictionary Comprehensions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ternary-operator">ternary operator</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Amna Gul
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

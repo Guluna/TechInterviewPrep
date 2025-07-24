@@ -1,0 +1,12 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: Chapter 1- Python Collections
+- file: Chapter 2- Very Useful Built-in Functions and Operations
+- file: Chapter 3- Big-O Analysis
+- file: Chapter 4- Recursion
+- file: Chapter 5- Dynamic Programming
+- file: Practice Questions

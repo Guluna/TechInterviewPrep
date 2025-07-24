@@ -1,0 +1,3712 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 4: Recursion &#8212; Technical Interview Preparation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter 4- Recursion';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 5: Dynamic Programming" href="Chapter%205-%20Dynamic%20Programming.html" />
+    <link rel="prev" title="Chapter 3: Big-O Analysis" href="Chapter%203-%20Big-O%20Analysis.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Technical Interview Preparation - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Technical Interview Preparation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to TIP
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Chapter%201-%20Python%20Collections.html">Chapter 1: Python Collections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chapter%202-%20Very%20Useful%20Built-in%20Functions%20and%20Operations.html">Chapter 2: Very Useful Built-in Functions and Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chapter%203-%20Big-O%20Analysis.html">Chapter 3: Big-O Analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Chapter 4: Recursion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chapter%205-%20Dynamic%20Programming.html">Chapter 5: Dynamic Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Practice%20Questions.html">Practice Questions</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter 4- Recursion.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Chapter 4- Recursion.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 4: Recursion</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-base-case">Single Base Case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-base-cases">Multiple Base Cases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-recursive-cases">Multiple Recursive Cases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-sort-big-o-nlogn">Merge Sort (Big-O nlogn)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fibonacci-big-o-2-n">Fibonacci (Big-O 2^n)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursion-and-space-complexity">Recursion and Space Complexity</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-4-recursion">
+<h1>Chapter 4: Recursion<a class="headerlink" href="#chapter-4-recursion" title="Link to this heading">#</a></h1>
+<p>Put simply, recursion is the process of a function calling itself. The two main components of it are:</p>
+<ol class="arabic simple">
+<li><p>Recursive Calls</p></li>
+<li><p>Base Case</p></li>
+</ol>
+<p>The program below will keep calling itself over and over until it crashes i.e. “RecursionError: maximum recursion depth exceeded” occurs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">recursive_fn</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;I have calledg myself </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> times&quot;</span><span class="p">)</span>
+    <span class="n">recursive_fn</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">recursive_fn</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">RecursionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I have calledg myself 1 times
+I have calledg myself 2 times
+I have calledg myself 3 times
+I have calledg myself 4 times
+I have calledg myself 5 times
+I have calledg myself 6 times
+I have calledg myself 7 times
+I have calledg myself 8 times
+I have calledg myself 9 times
+I have calledg myself 10 times
+I have calledg myself 11 times
+I have calledg myself 12 times
+I have calledg myself 13 times
+I have calledg myself 14 times
+I have calledg myself 15 times
+I have calledg myself 16 times
+I have calledg myself 17 times
+I have calledg myself 18 times
+I have calledg myself 19 times
+I have calledg myself 20 times
+I have calledg myself 21 times
+I have calledg myself 22 times
+I have calledg myself 23 times
+I have calledg myself 24 times
+I have calledg myself 25 times
+I have calledg myself 26 times
+I have calledg myself 27 times
+I have calledg myself 28 times
+I have calledg myself 29 times
+I have calledg myself 30 times
+I have calledg myself 31 times
+I have calledg myself 32 times
+I have calledg myself 33 times
+I have calledg myself 34 times
+I have calledg myself 35 times
+I have calledg myself 36 times
+I have calledg myself 37 times
+I have calledg myself 38 times
+I have calledg myself 39 times
+I have calledg myself 40 times
+I have calledg myself 41 times
+I have calledg myself 42 times
+I have calledg myself 43 times
+I have calledg myself 44 times
+I have calledg myself 45 times
+I have calledg myself 46 times
+I have calledg myself 47 times
+I have calledg myself 48 times
+I have calledg myself 49 times
+I have calledg myself 50 times
+I have calledg myself 51 times
+I have calledg myself 52 times
+I have calledg myself 53 times
+I have calledg myself 54 times
+I have calledg myself 55 times
+I have calledg myself 56 times
+I have calledg myself 57 times
+I have calledg myself 58 times
+I have calledg myself 59 times
+I have calledg myself 60 times
+I have calledg myself 61 times
+I have calledg myself 62 times
+I have calledg myself 63 times
+I have calledg myself 64 times
+I have calledg myself 65 times
+I have calledg myself 66 times
+I have calledg myself 67 times
+I have calledg myself 68 times
+I have calledg myself 69 times
+I have calledg myself 70 times
+I have calledg myself 71 times
+I have calledg myself 72 times
+I have calledg myself 73 times
+I have calledg myself 74 times
+I have calledg myself 75 times
+I have calledg myself 76 times
+I have calledg myself 77 times
+I have calledg myself 78 times
+I have calledg myself 79 times
+I have calledg myself 80 times
+I have calledg myself 81 times
+I have calledg myself 82 times
+I have calledg myself 83 times
+I have calledg myself 84 times
+I have calledg myself 85 times
+I have calledg myself 86 times
+I have calledg myself 87 times
+I have calledg myself 88 times
+I have calledg myself 89 times
+I have calledg myself 90 times
+I have calledg myself 91 times
+I have calledg myself 92 times
+I have calledg myself 93 times
+I have calledg myself 94 times
+I have calledg myself 95 times
+I have calledg myself 96 times
+I have calledg myself 97 times
+I have calledg myself 98 times
+I have calledg myself 99 times
+I have calledg myself 100 times
+I have calledg myself 101 times
+I have calledg myself 102 times
+I have calledg myself 103 times
+I have calledg myself 104 times
+I have calledg myself 105 times
+I have calledg myself 106 times
+I have calledg myself 107 times
+I have calledg myself 108 times
+I have calledg myself 109 times
+I have calledg myself 110 times
+I have calledg myself 111 times
+I have calledg myself 112 times
+I have calledg myself 113 times
+I have calledg myself 114 times
+I have calledg myself 115 times
+I have calledg myself 116 times
+I have calledg myself 117 times
+I have calledg myself 118 times
+I have calledg myself 119 times
+I have calledg myself 120 times
+I have calledg myself 121 times
+I have calledg myself 122 times
+I have calledg myself 123 times
+I have calledg myself 124 times
+I have calledg myself 125 times
+I have calledg myself 126 times
+I have calledg myself 127 times
+I have calledg myself 128 times
+I have calledg myself 129 times
+I have calledg myself 130 times
+I have calledg myself 131 times
+I have calledg myself 132 times
+I have calledg myself 133 times
+I have calledg myself 134 times
+I have calledg myself 135 times
+I have calledg myself 136 times
+I have calledg myself 137 times
+I have calledg myself 138 times
+I have calledg myself 139 times
+I have calledg myself 140 times
+I have calledg myself 141 times
+I have calledg myself 142 times
+I have calledg myself 143 times
+I have calledg myself 144 times
+I have calledg myself 145 times
+I have calledg myself 146 times
+I have calledg myself 147 times
+I have calledg myself 148 times
+I have calledg myself 149 times
+I have calledg myself 150 times
+I have calledg myself 151 times
+I have calledg myself 152 times
+I have calledg myself 153 times
+I have calledg myself 154 times
+I have calledg myself 155 times
+I have calledg myself 156 times
+I have calledg myself 157 times
+I have calledg myself 158 times
+I have calledg myself 159 times
+I have calledg myself 160 times
+I have calledg myself 161 times
+I have calledg myself 162 times
+I have calledg myself 163 times
+I have calledg myself 164 times
+I have calledg myself 165 times
+I have calledg myself 166 times
+I have calledg myself 167 times
+I have calledg myself 168 times
+I have calledg myself 169 times
+I have calledg myself 170 times
+I have calledg myself 171 times
+I have calledg myself 172 times
+I have calledg myself 173 times
+I have calledg myself 174 times
+I have calledg myself 175 times
+I have calledg myself 176 times
+I have calledg myself 177 times
+I have calledg myself 178 times
+I have calledg myself 179 times
+I have calledg myself 180 times
+I have calledg myself 181 times
+I have calledg myself 182 times
+I have calledg myself 183 times
+I have calledg myself 184 times
+I have calledg myself 185 times
+I have calledg myself 186 times
+I have calledg myself 187 times
+I have calledg myself 188 times
+I have calledg myself 189 times
+I have calledg myself 190 times
+I have calledg myself 191 times
+I have calledg myself 192 times
+I have calledg myself 193 times
+I have calledg myself 194 times
+I have calledg myself 195 times
+I have calledg myself 196 times
+I have calledg myself 197 times
+I have calledg myself 198 times
+I have calledg myself 199 times
+I have calledg myself 200 times
+I have calledg myself 201 times
+I have calledg myself 202 times
+I have calledg myself 203 times
+I have calledg myself 204 times
+I have calledg myself 205 times
+I have calledg myself 206 times
+I have calledg myself 207 times
+I have calledg myself 208 times
+I have calledg myself 209 times
+I have calledg myself 210 times
+I have calledg myself 211 times
+I have calledg myself 212 times
+I have calledg myself 213 times
+I have calledg myself 214 times
+I have calledg myself 215 times
+I have calledg myself 216 times
+I have calledg myself 217 times
+I have calledg myself 218 times
+I have calledg myself 219 times
+I have calledg myself 220 times
+I have calledg myself 221 times
+I have calledg myself 222 times
+I have calledg myself 223 times
+I have calledg myself 224 times
+I have calledg myself 225 times
+I have calledg myself 226 times
+I have calledg myself 227 times
+I have calledg myself 228 times
+I have calledg myself 229 times
+I have calledg myself 230 times
+I have calledg myself 231 times
+I have calledg myself 232 times
+I have calledg myself 233 times
+I have calledg myself 234 times
+I have calledg myself 235 times
+I have calledg myself 236 times
+I have calledg myself 237 times
+I have calledg myself 238 times
+I have calledg myself 239 times
+I have calledg myself 240 times
+I have calledg myself 241 times
+I have calledg myself 242 times
+I have calledg myself 243 times
+I have calledg myself 244 times
+I have calledg myself 245 times
+I have calledg myself 246 times
+I have calledg myself 247 times
+I have calledg myself 248 times
+I have calledg myself 249 times
+I have calledg myself 250 times
+I have calledg myself 251 times
+I have calledg myself 252 times
+I have calledg myself 253 times
+I have calledg myself 254 times
+I have calledg myself 255 times
+I have calledg myself 256 times
+I have calledg myself 257 times
+I have calledg myself 258 times
+I have calledg myself 259 times
+I have calledg myself 260 times
+I have calledg myself 261 times
+I have calledg myself 262 times
+I have calledg myself 263 times
+I have calledg myself 264 times
+I have calledg myself 265 times
+I have calledg myself 266 times
+I have calledg myself 267 times
+I have calledg myself 268 times
+I have calledg myself 269 times
+I have calledg myself 270 times
+I have calledg myself 271 times
+I have calledg myself 272 times
+I have calledg myself 273 times
+I have calledg myself 274 times
+I have calledg myself 275 times
+I have calledg myself 276 times
+I have calledg myself 277 times
+I have calledg myself 278 times
+I have calledg myself 279 times
+I have calledg myself 280 times
+I have calledg myself 281 times
+I have calledg myself 282 times
+I have calledg myself 283 times
+I have calledg myself 284 times
+I have calledg myself 285 times
+I have calledg myself 286 times
+I have calledg myself 287 times
+I have calledg myself 288 times
+I have calledg myself 289 times
+I have calledg myself 290 times
+I have calledg myself 291 times
+I have calledg myself 292 times
+I have calledg myself 293 times
+I have calledg myself 294 times
+I have calledg myself 295 times
+I have calledg myself 296 times
+I have calledg myself 297 times
+I have calledg myself 298 times
+I have calledg myself 299 times
+I have calledg myself 300 times
+I have calledg myself 301 times
+I have calledg myself 302 times
+I have calledg myself 303 times
+I have calledg myself 304 times
+I have calledg myself 305 times
+I have calledg myself 306 times
+I have calledg myself 307 times
+I have calledg myself 308 times
+I have calledg myself 309 times
+I have calledg myself 310 times
+I have calledg myself 311 times
+I have calledg myself 312 times
+I have calledg myself 313 times
+I have calledg myself 314 times
+I have calledg myself 315 times
+I have calledg myself 316 times
+I have calledg myself 317 times
+I have calledg myself 318 times
+I have calledg myself 319 times
+I have calledg myself 320 times
+I have calledg myself 321 times
+I have calledg myself 322 times
+I have calledg myself 323 times
+I have calledg myself 324 times
+I have calledg myself 325 times
+I have calledg myself 326 times
+I have calledg myself 327 times
+I have calledg myself 328 times
+I have calledg myself 329 times
+I have calledg myself 330 times
+I have calledg myself 331 times
+I have calledg myself 332 times
+I have calledg myself 333 times
+I have calledg myself 334 times
+I have calledg myself 335 times
+I have calledg myself 336 times
+I have calledg myself 337 times
+I have calledg myself 338 times
+I have calledg myself 339 times
+I have calledg myself 340 times
+I have calledg myself 341 times
+I have calledg myself 342 times
+I have calledg myself 343 times
+I have calledg myself 344 times
+I have calledg myself 345 times
+I have calledg myself 346 times
+I have calledg myself 347 times
+I have calledg myself 348 times
+I have calledg myself 349 times
+I have calledg myself 350 times
+I have calledg myself 351 times
+I have calledg myself 352 times
+I have calledg myself 353 times
+I have calledg myself 354 times
+I have calledg myself 355 times
+I have calledg myself 356 times
+I have calledg myself 357 times
+I have calledg myself 358 times
+I have calledg myself 359 times
+I have calledg myself 360 times
+I have calledg myself 361 times
+I have calledg myself 362 times
+I have calledg myself 363 times
+I have calledg myself 364 times
+I have calledg myself 365 times
+I have calledg myself 366 times
+I have calledg myself 367 times
+I have calledg myself 368 times
+I have calledg myself 369 times
+I have calledg myself 370 times
+I have calledg myself 371 times
+I have calledg myself 372 times
+I have calledg myself 373 times
+I have calledg myself 374 times
+I have calledg myself 375 times
+I have calledg myself 376 times
+I have calledg myself 377 times
+I have calledg myself 378 times
+I have calledg myself 379 times
+I have calledg myself 380 times
+I have calledg myself 381 times
+I have calledg myself 382 times
+I have calledg myself 383 times
+I have calledg myself 384 times
+I have calledg myself 385 times
+I have calledg myself 386 times
+I have calledg myself 387 times
+I have calledg myself 388 times
+I have calledg myself 389 times
+I have calledg myself 390 times
+I have calledg myself 391 times
+I have calledg myself 392 times
+I have calledg myself 393 times
+I have calledg myself 394 times
+I have calledg myself 395 times
+I have calledg myself 396 times
+I have calledg myself 397 times
+I have calledg myself 398 times
+I have calledg myself 399 times
+I have calledg myself 400 times
+I have calledg myself 401 times
+I have calledg myself 402 times
+I have calledg myself 403 times
+I have calledg myself 404 times
+I have calledg myself 405 times
+I have calledg myself 406 times
+I have calledg myself 407 times
+I have calledg myself 408 times
+I have calledg myself 409 times
+I have calledg myself 410 times
+I have calledg myself 411 times
+I have calledg myself 412 times
+I have calledg myself 413 times
+I have calledg myself 414 times
+I have calledg myself 415 times
+I have calledg myself 416 times
+I have calledg myself 417 times
+I have calledg myself 418 times
+I have calledg myself 419 times
+I have calledg myself 420 times
+I have calledg myself 421 times
+I have calledg myself 422 times
+I have calledg myself 423 times
+I have calledg myself 424 times
+I have calledg myself 425 times
+I have calledg myself 426 times
+I have calledg myself 427 times
+I have calledg myself 428 times
+I have calledg myself 429 times
+I have calledg myself 430 times
+I have calledg myself 431 times
+I have calledg myself 432 times
+I have calledg myself 433 times
+I have calledg myself 434 times
+I have calledg myself 435 times
+I have calledg myself 436 times
+I have calledg myself 437 times
+I have calledg myself 438 times
+I have calledg myself 439 times
+I have calledg myself 440 times
+I have calledg myself 441 times
+I have calledg myself 442 times
+I have calledg myself 443 times
+I have calledg myself 444 times
+I have calledg myself 445 times
+I have calledg myself 446 times
+I have calledg myself 447 times
+I have calledg myself 448 times
+I have calledg myself 449 times
+I have calledg myself 450 times
+I have calledg myself 451 times
+I have calledg myself 452 times
+I have calledg myself 453 times
+I have calledg myself 454 times
+I have calledg myself 455 times
+I have calledg myself 456 times
+I have calledg myself 457 times
+I have calledg myself 458 times
+I have calledg myself 459 times
+I have calledg myself 460 times
+I have calledg myself 461 times
+I have calledg myself 462 times
+I have calledg myself 463 times
+I have calledg myself 464 times
+I have calledg myself 465 times
+I have calledg myself 466 times
+I have calledg myself 467 times
+I have calledg myself 468 times
+I have calledg myself 469 times
+I have calledg myself 470 times
+I have calledg myself 471 times
+I have calledg myself 472 times
+I have calledg myself 473 times
+I have calledg myself 474 times
+I have calledg myself 475 times
+I have calledg myself 476 times
+I have calledg myself 477 times
+I have calledg myself 478 times
+I have calledg myself 479 times
+I have calledg myself 480 times
+I have calledg myself 481 times
+I have calledg myself 482 times
+I have calledg myself 483 times
+I have calledg myself 484 times
+I have calledg myself 485 times
+I have calledg myself 486 times
+I have calledg myself 487 times
+I have calledg myself 488 times
+I have calledg myself 489 times
+I have calledg myself 490 times
+I have calledg myself 491 times
+I have calledg myself 492 times
+I have calledg myself 493 times
+I have calledg myself 494 times
+I have calledg myself 495 times
+I have calledg myself 496 times
+I have calledg myself 497 times
+I have calledg myself 498 times
+I have calledg myself 499 times
+I have calledg myself 500 times
+I have calledg myself 501 times
+I have calledg myself 502 times
+I have calledg myself 503 times
+I have calledg myself 504 times
+I have calledg myself 505 times
+I have calledg myself 506 times
+I have calledg myself 507 times
+I have calledg myself 508 times
+I have calledg myself 509 times
+I have calledg myself 510 times
+I have calledg myself 511 times
+I have calledg myself 512 times
+I have calledg myself 513 times
+I have calledg myself 514 times
+I have calledg myself 515 times
+I have calledg myself 516 times
+I have calledg myself 517 times
+I have calledg myself 518 times
+I have calledg myself 519 times
+I have calledg myself 520 times
+I have calledg myself 521 times
+I have calledg myself 522 times
+I have calledg myself 523 times
+I have calledg myself 524 times
+I have calledg myself 525 times
+I have calledg myself 526 times
+I have calledg myself 527 times
+I have calledg myself 528 times
+I have calledg myself 529 times
+I have calledg myself 530 times
+I have calledg myself 531 times
+I have calledg myself 532 times
+I have calledg myself 533 times
+I have calledg myself 534 times
+I have calledg myself 535 times
+I have calledg myself 536 times
+I have calledg myself 537 times
+I have calledg myself 538 times
+I have calledg myself 539 times
+I have calledg myself 540 times
+I have calledg myself 541 times
+I have calledg myself 542 times
+I have calledg myself 543 times
+I have calledg myself 544 times
+I have calledg myself 545 times
+I have calledg myself 546 times
+I have calledg myself 547 times
+I have calledg myself 548 times
+I have calledg myself 549 times
+I have calledg myself 550 times
+I have calledg myself 551 times
+I have calledg myself 552 times
+I have calledg myself 553 times
+I have calledg myself 554 times
+I have calledg myself 555 times
+I have calledg myself 556 times
+I have calledg myself 557 times
+I have calledg myself 558 times
+I have calledg myself 559 times
+I have calledg myself 560 times
+I have calledg myself 561 times
+I have calledg myself 562 times
+I have calledg myself 563 times
+I have calledg myself 564 times
+I have calledg myself 565 times
+I have calledg myself 566 times
+I have calledg myself 567 times
+I have calledg myself 568 times
+I have calledg myself 569 times
+I have calledg myself 570 times
+I have calledg myself 571 times
+I have calledg myself 572 times
+I have calledg myself 573 times
+I have calledg myself 574 times
+I have calledg myself 575 times
+I have calledg myself 576 times
+I have calledg myself 577 times
+I have calledg myself 578 times
+I have calledg myself 579 times
+I have calledg myself 580 times
+I have calledg myself 581 times
+I have calledg myself 582 times
+I have calledg myself 583 times
+I have calledg myself 584 times
+I have calledg myself 585 times
+I have calledg myself 586 times
+I have calledg myself 587 times
+I have calledg myself 588 times
+I have calledg myself 589 times
+I have calledg myself 590 times
+I have calledg myself 591 times
+I have calledg myself 592 times
+I have calledg myself 593 times
+I have calledg myself 594 times
+I have calledg myself 595 times
+I have calledg myself 596 times
+I have calledg myself 597 times
+I have calledg myself 598 times
+I have calledg myself 599 times
+I have calledg myself 600 times
+I have calledg myself 601 times
+I have calledg myself 602 times
+I have calledg myself 603 times
+I have calledg myself 604 times
+I have calledg myself 605 times
+I have calledg myself 606 times
+I have calledg myself 607 times
+I have calledg myself 608 times
+I have calledg myself 609 times
+I have calledg myself 610 times
+I have calledg myself 611 times
+I have calledg myself 612 times
+I have calledg myself 613 times
+I have calledg myself 614 times
+I have calledg myself 615 times
+I have calledg myself 616 times
+I have calledg myself 617 times
+I have calledg myself 618 times
+I have calledg myself 619 times
+I have calledg myself 620 times
+I have calledg myself 621 times
+I have calledg myself 622 times
+I have calledg myself 623 times
+I have calledg myself 624 times
+I have calledg myself 625 times
+I have calledg myself 626 times
+I have calledg myself 627 times
+I have calledg myself 628 times
+I have calledg myself 629 times
+I have calledg myself 630 times
+I have calledg myself 631 times
+I have calledg myself 632 times
+I have calledg myself 633 times
+I have calledg myself 634 times
+I have calledg myself 635 times
+I have calledg myself 636 times
+I have calledg myself 637 times
+I have calledg myself 638 times
+I have calledg myself 639 times
+I have calledg myself 640 times
+I have calledg myself 641 times
+I have calledg myself 642 times
+I have calledg myself 643 times
+I have calledg myself 644 times
+I have calledg myself 645 times
+I have calledg myself 646 times
+I have calledg myself 647 times
+I have calledg myself 648 times
+I have calledg myself 649 times
+I have calledg myself 650 times
+I have calledg myself 651 times
+I have calledg myself 652 times
+I have calledg myself 653 times
+I have calledg myself 654 times
+I have calledg myself 655 times
+I have calledg myself 656 times
+I have calledg myself 657 times
+I have calledg myself 658 times
+I have calledg myself 659 times
+I have calledg myself 660 times
+I have calledg myself 661 times
+I have calledg myself 662 times
+I have calledg myself 663 times
+I have calledg myself 664 times
+I have calledg myself 665 times
+I have calledg myself 666 times
+I have calledg myself 667 times
+I have calledg myself 668 times
+I have calledg myself 669 times
+I have calledg myself 670 times
+I have calledg myself 671 times
+I have calledg myself 672 times
+I have calledg myself 673 times
+I have calledg myself 674 times
+I have calledg myself 675 times
+I have calledg myself 676 times
+I have calledg myself 677 times
+I have calledg myself 678 times
+I have calledg myself 679 times
+I have calledg myself 680 times
+I have calledg myself 681 times
+I have calledg myself 682 times
+I have calledg myself 683 times
+I have calledg myself 684 times
+I have calledg myself 685 times
+I have calledg myself 686 times
+I have calledg myself 687 times
+I have calledg myself 688 times
+I have calledg myself 689 times
+I have calledg myself 690 times
+I have calledg myself 691 times
+I have calledg myself 692 times
+I have calledg myself 693 times
+I have calledg myself 694 times
+I have calledg myself 695 times
+I have calledg myself 696 times
+I have calledg myself 697 times
+I have calledg myself 698 times
+I have calledg myself 699 times
+I have calledg myself 700 times
+I have calledg myself 701 times
+I have calledg myself 702 times
+I have calledg myself 703 times
+I have calledg myself 704 times
+I have calledg myself 705 times
+I have calledg myself 706 times
+I have calledg myself 707 times
+I have calledg myself 708 times
+I have calledg myself 709 times
+I have calledg myself 710 times
+I have calledg myself 711 times
+I have calledg myself 712 times
+I have calledg myself 713 times
+I have calledg myself 714 times
+I have calledg myself 715 times
+I have calledg myself 716 times
+I have calledg myself 717 times
+I have calledg myself 718 times
+I have calledg myself 719 times
+I have calledg myself 720 times
+I have calledg myself 721 times
+I have calledg myself 722 times
+I have calledg myself 723 times
+I have calledg myself 724 times
+I have calledg myself 725 times
+I have calledg myself 726 times
+I have calledg myself 727 times
+I have calledg myself 728 times
+I have calledg myself 729 times
+I have calledg myself 730 times
+I have calledg myself 731 times
+I have calledg myself 732 times
+I have calledg myself 733 times
+I have calledg myself 734 times
+I have calledg myself 735 times
+I have calledg myself 736 times
+I have calledg myself 737 times
+I have calledg myself 738 times
+I have calledg myself 739 times
+I have calledg myself 740 times
+I have calledg myself 741 times
+I have calledg myself 742 times
+I have calledg myself 743 times
+I have calledg myself 744 times
+I have calledg myself 745 times
+I have calledg myself 746 times
+I have calledg myself 747 times
+I have calledg myself 748 times
+I have calledg myself 749 times
+I have calledg myself 750 times
+I have calledg myself 751 times
+I have calledg myself 752 times
+I have calledg myself 753 times
+I have calledg myself 754 times
+I have calledg myself 755 times
+I have calledg myself 756 times
+I have calledg myself 757 times
+I have calledg myself 758 times
+I have calledg myself 759 times
+I have calledg myself 760 times
+I have calledg myself 761 times
+I have calledg myself 762 times
+I have calledg myself 763 times
+I have calledg myself 764 times
+I have calledg myself 765 times
+I have calledg myself 766 times
+I have calledg myself 767 times
+I have calledg myself 768 times
+I have calledg myself 769 times
+I have calledg myself 770 times
+I have calledg myself 771 times
+I have calledg myself 772 times
+I have calledg myself 773 times
+I have calledg myself 774 times
+I have calledg myself 775 times
+I have calledg myself 776 times
+I have calledg myself 777 times
+I have calledg myself 778 times
+I have calledg myself 779 times
+I have calledg myself 780 times
+I have calledg myself 781 times
+I have calledg myself 782 times
+I have calledg myself 783 times
+I have calledg myself 784 times
+I have calledg myself 785 times
+I have calledg myself 786 times
+I have calledg myself 787 times
+I have calledg myself 788 times
+I have calledg myself 789 times
+I have calledg myself 790 times
+I have calledg myself 791 times
+I have calledg myself 792 times
+I have calledg myself 793 times
+I have calledg myself 794 times
+I have calledg myself 795 times
+I have calledg myself 796 times
+I have calledg myself 797 times
+I have calledg myself 798 times
+I have calledg myself 799 times
+I have calledg myself 800 times
+I have calledg myself 801 times
+I have calledg myself 802 times
+I have calledg myself 803 times
+I have calledg myself 804 times
+I have calledg myself 805 times
+I have calledg myself 806 times
+I have calledg myself 807 times
+I have calledg myself 808 times
+I have calledg myself 809 times
+I have calledg myself 810 times
+I have calledg myself 811 times
+I have calledg myself 812 times
+I have calledg myself 813 times
+I have calledg myself 814 times
+I have calledg myself 815 times
+I have calledg myself 816 times
+I have calledg myself 817 times
+I have calledg myself 818 times
+I have calledg myself 819 times
+I have calledg myself 820 times
+I have calledg myself 821 times
+I have calledg myself 822 times
+I have calledg myself 823 times
+I have calledg myself 824 times
+I have calledg myself 825 times
+I have calledg myself 826 times
+I have calledg myself 827 times
+I have calledg myself 828 times
+I have calledg myself 829 times
+I have calledg myself 830 times
+I have calledg myself 831 times
+I have calledg myself 832 times
+I have calledg myself 833 times
+I have calledg myself 834 times
+I have calledg myself 835 times
+I have calledg myself 836 times
+I have calledg myself 837 times
+I have calledg myself 838 times
+I have calledg myself 839 times
+I have calledg myself 840 times
+I have calledg myself 841 times
+I have calledg myself 842 times
+I have calledg myself 843 times
+I have calledg myself 844 times
+I have calledg myself 845 times
+I have calledg myself 846 times
+I have calledg myself 847 times
+I have calledg myself 848 times
+I have calledg myself 849 times
+I have calledg myself 850 times
+I have calledg myself 851 times
+I have calledg myself 852 times
+I have calledg myself 853 times
+I have calledg myself 854 times
+I have calledg myself 855 times
+I have calledg myself 856 times
+I have calledg myself 857 times
+I have calledg myself 858 times
+I have calledg myself 859 times
+I have calledg myself 860 times
+I have calledg myself 861 times
+I have calledg myself 862 times
+I have calledg myself 863 times
+I have calledg myself 864 times
+I have calledg myself 865 times
+I have calledg myself 866 times
+I have calledg myself 867 times
+I have calledg myself 868 times
+I have calledg myself 869 times
+I have calledg myself 870 times
+I have calledg myself 871 times
+I have calledg myself 872 times
+I have calledg myself 873 times
+I have calledg myself 874 times
+I have calledg myself 875 times
+I have calledg myself 876 times
+I have calledg myself 877 times
+I have calledg myself 878 times
+I have calledg myself 879 times
+I have calledg myself 880 times
+I have calledg myself 881 times
+I have calledg myself 882 times
+I have calledg myself 883 times
+I have calledg myself 884 times
+I have calledg myself 885 times
+I have calledg myself 886 times
+I have calledg myself 887 times
+I have calledg myself 888 times
+I have calledg myself 889 times
+I have calledg myself 890 times
+I have calledg myself 891 times
+I have calledg myself 892 times
+I have calledg myself 893 times
+I have calledg myself 894 times
+I have calledg myself 895 times
+I have calledg myself 896 times
+I have calledg myself 897 times
+I have calledg myself 898 times
+I have calledg myself 899 times
+I have calledg myself 900 times
+I have calledg myself 901 times
+I have calledg myself 902 times
+I have calledg myself 903 times
+I have calledg myself 904 times
+I have calledg myself 905 times
+I have calledg myself 906 times
+I have calledg myself 907 times
+I have calledg myself 908 times
+I have calledg myself 909 times
+I have calledg myself 910 times
+I have calledg myself 911 times
+I have calledg myself 912 times
+I have calledg myself 913 times
+I have calledg myself 914 times
+I have calledg myself 915 times
+I have calledg myself 916 times
+I have calledg myself 917 times
+I have calledg myself 918 times
+I have calledg myself 919 times
+I have calledg myself 920 times
+I have calledg myself 921 times
+I have calledg myself 922 times
+I have calledg myself 923 times
+I have calledg myself 924 times
+I have calledg myself 925 times
+I have calledg myself 926 times
+I have calledg myself 927 times
+I have calledg myself 928 times
+I have calledg myself 929 times
+I have calledg myself 930 times
+I have calledg myself 931 times
+I have calledg myself 932 times
+I have calledg myself 933 times
+I have calledg myself 934 times
+I have calledg myself 935 times
+I have calledg myself 936 times
+I have calledg myself 937 times
+I have calledg myself 938 times
+I have calledg myself 939 times
+I have calledg myself 940 times
+I have calledg myself 941 times
+I have calledg myself 942 times
+I have calledg myself 943 times
+I have calledg myself 944 times
+I have calledg myself 945 times
+I have calledg myself 946 times
+I have calledg myself 947 times
+I have calledg myself 948 times
+I have calledg myself 949 times
+I have calledg myself 950 times
+I have calledg myself 951 times
+I have calledg myself 952 times
+I have calledg myself 953 times
+I have calledg myself 954 times
+I have calledg myself 955 times
+I have calledg myself 956 times
+I have calledg myself 957 times
+I have calledg myself 958 times
+I have calledg myself 959 times
+I have calledg myself 960 times
+I have calledg myself 961 times
+I have calledg myself 962 times
+I have calledg myself 963 times
+I have calledg myself 964 times
+I have calledg myself 965 times
+I have calledg myself 966 times
+I have calledg myself 967 times
+I have calledg myself 968 times
+I have calledg myself 969 times
+I have calledg myself 970 times
+I have calledg myself 971 times
+I have calledg myself 972 times
+I have calledg myself 973 times
+I have calledg myself 974 times
+I have calledg myself 975 times
+I have calledg myself 976 times
+I have calledg myself 977 times
+I have calledg myself 978 times
+I have calledg myself 979 times
+I have calledg myself 980 times
+I have calledg myself 981 times
+I have calledg myself 982 times
+I have calledg myself 983 times
+I have calledg myself 984 times
+I have calledg myself 985 times
+I have calledg myself 986 times
+I have calledg myself 987 times
+I have calledg myself 988 times
+I have calledg myself 989 times
+I have calledg myself 990 times
+I have calledg myself 991 times
+I have calledg myself 992 times
+I have calledg myself 993 times
+I have calledg myself 994 times
+I have calledg myself 995 times
+I have calledg myself 996 times
+I have calledg myself 997 times
+I have calledg myself 998 times
+I have calledg myself 999 times
+I have calledg myself 1000 times
+I have calledg myself 1001 times
+I have calledg myself 1002 times
+I have calledg myself 1003 times
+I have calledg myself 1004 times
+I have calledg myself 1005 times
+I have calledg myself 1006 times
+I have calledg myself 1007 times
+I have calledg myself 1008 times
+I have calledg myself 1009 times
+I have calledg myself 1010 times
+I have calledg myself 1011 times
+I have calledg myself 1012 times
+I have calledg myself 1013 times
+I have calledg myself 1014 times
+I have calledg myself 1015 times
+I have calledg myself 1016 times
+I have calledg myself 1017 times
+I have calledg myself 1018 times
+I have calledg myself 1019 times
+I have calledg myself 1020 times
+I have calledg myself 1021 times
+I have calledg myself 1022 times
+I have calledg myself 1023 times
+I have calledg myself 1024 times
+I have calledg myself 1025 times
+I have calledg myself 1026 times
+I have calledg myself 1027 times
+I have calledg myself 1028 times
+I have calledg myself 1029 times
+I have calledg myself 1030 times
+I have calledg myself 1031 times
+I have calledg myself 1032 times
+I have calledg myself 1033 times
+I have calledg myself 1034 times
+I have calledg myself 1035 times
+I have calledg myself 1036 times
+I have calledg myself 1037 times
+I have calledg myself 1038 times
+I have calledg myself 1039 times
+I have calledg myself 1040 times
+I have calledg myself 1041 times
+I have calledg myself 1042 times
+I have calledg myself 1043 times
+I have calledg myself 1044 times
+I have calledg myself 1045 times
+I have calledg myself 1046 times
+I have calledg myself 1047 times
+I have calledg myself 1048 times
+I have calledg myself 1049 times
+I have calledg myself 1050 times
+I have calledg myself 1051 times
+I have calledg myself 1052 times
+I have calledg myself 1053 times
+I have calledg myself 1054 times
+I have calledg myself 1055 times
+I have calledg myself 1056 times
+I have calledg myself 1057 times
+I have calledg myself 1058 times
+I have calledg myself 1059 times
+I have calledg myself 1060 times
+I have calledg myself 1061 times
+I have calledg myself 1062 times
+I have calledg myself 1063 times
+I have calledg myself 1064 times
+I have calledg myself 1065 times
+I have calledg myself 1066 times
+I have calledg myself 1067 times
+I have calledg myself 1068 times
+I have calledg myself 1069 times
+I have calledg myself 1070 times
+I have calledg myself 1071 times
+I have calledg myself 1072 times
+I have calledg myself 1073 times
+I have calledg myself 1074 times
+I have calledg myself 1075 times
+I have calledg myself 1076 times
+I have calledg myself 1077 times
+I have calledg myself 1078 times
+I have calledg myself 1079 times
+I have calledg myself 1080 times
+I have calledg myself 1081 times
+I have calledg myself 1082 times
+I have calledg myself 1083 times
+I have calledg myself 1084 times
+I have calledg myself 1085 times
+I have calledg myself 1086 times
+I have calledg myself 1087 times
+I have calledg myself 1088 times
+I have calledg myself 1089 times
+I have calledg myself 1090 times
+I have calledg myself 1091 times
+I have calledg myself 1092 times
+I have calledg myself 1093 times
+I have calledg myself 1094 times
+I have calledg myself 1095 times
+I have calledg myself 1096 times
+I have calledg myself 1097 times
+I have calledg myself 1098 times
+I have calledg myself 1099 times
+I have calledg myself 1100 times
+I have calledg myself 1101 times
+I have calledg myself 1102 times
+I have calledg myself 1103 times
+I have calledg myself 1104 times
+I have calledg myself 1105 times
+I have calledg myself 1106 times
+I have calledg myself 1107 times
+I have calledg myself 1108 times
+I have calledg myself 1109 times
+I have calledg myself 1110 times
+I have calledg myself 1111 times
+I have calledg myself 1112 times
+I have calledg myself 1113 times
+I have calledg myself 1114 times
+I have calledg myself 1115 times
+I have calledg myself 1116 times
+I have calledg myself 1117 times
+I have calledg myself 1118 times
+I have calledg myself 1119 times
+I have calledg myself 1120 times
+I have calledg myself 1121 times
+I have calledg myself 1122 times
+I have calledg myself 1123 times
+I have calledg myself 1124 times
+I have calledg myself 1125 times
+I have calledg myself 1126 times
+I have calledg myself 1127 times
+I have calledg myself 1128 times
+I have calledg myself 1129 times
+I have calledg myself 1130 times
+I have calledg myself 1131 times
+I have calledg myself 1132 times
+I have calledg myself 1133 times
+I have calledg myself 1134 times
+I have calledg myself 1135 times
+I have calledg myself 1136 times
+I have calledg myself 1137 times
+I have calledg myself 1138 times
+I have calledg myself 1139 times
+I have calledg myself 1140 times
+I have calledg myself 1141 times
+I have calledg myself 1142 times
+I have calledg myself 1143 times
+I have calledg myself 1144 times
+I have calledg myself 1145 times
+I have calledg myself 1146 times
+I have calledg myself 1147 times
+I have calledg myself 1148 times
+I have calledg myself 1149 times
+I have calledg myself 1150 times
+I have calledg myself 1151 times
+I have calledg myself 1152 times
+I have calledg myself 1153 times
+I have calledg myself 1154 times
+I have calledg myself 1155 times
+I have calledg myself 1156 times
+I have calledg myself 1157 times
+I have calledg myself 1158 times
+I have calledg myself 1159 times
+I have calledg myself 1160 times
+I have calledg myself 1161 times
+I have calledg myself 1162 times
+I have calledg myself 1163 times
+I have calledg myself 1164 times
+I have calledg myself 1165 times
+I have calledg myself 1166 times
+I have calledg myself 1167 times
+I have calledg myself 1168 times
+I have calledg myself 1169 times
+I have calledg myself 1170 times
+I have calledg myself 1171 times
+I have calledg myself 1172 times
+I have calledg myself 1173 times
+I have calledg myself 1174 times
+I have calledg myself 1175 times
+I have calledg myself 1176 times
+I have calledg myself 1177 times
+I have calledg myself 1178 times
+I have calledg myself 1179 times
+I have calledg myself 1180 times
+I have calledg myself 1181 times
+I have calledg myself 1182 times
+I have calledg myself 1183 times
+I have calledg myself 1184 times
+I have calledg myself 1185 times
+I have calledg myself 1186 times
+I have calledg myself 1187 times
+I have calledg myself 1188 times
+I have calledg myself 1189 times
+I have calledg myself 1190 times
+I have calledg myself 1191 times
+I have calledg myself 1192 times
+I have calledg myself 1193 times
+I have calledg myself 1194 times
+I have calledg myself 1195 times
+I have calledg myself 1196 times
+I have calledg myself 1197 times
+I have calledg myself 1198 times
+I have calledg myself 1199 times
+I have calledg myself 1200 times
+I have calledg myself 1201 times
+I have calledg myself 1202 times
+I have calledg myself 1203 times
+I have calledg myself 1204 times
+I have calledg myself 1205 times
+I have calledg myself 1206 times
+I have calledg myself 1207 times
+I have calledg myself 1208 times
+I have calledg myself 1209 times
+I have calledg myself 1210 times
+I have calledg myself 1211 times
+I have calledg myself 1212 times
+I have calledg myself 1213 times
+I have calledg myself 1214 times
+I have calledg myself 1215 times
+I have calledg myself 1216 times
+I have calledg myself 1217 times
+I have calledg myself 1218 times
+I have calledg myself 1219 times
+I have calledg myself 1220 times
+I have calledg myself 1221 times
+I have calledg myself 1222 times
+I have calledg myself 1223 times
+I have calledg myself 1224 times
+I have calledg myself 1225 times
+I have calledg myself 1226 times
+I have calledg myself 1227 times
+I have calledg myself 1228 times
+I have calledg myself 1229 times
+I have calledg myself 1230 times
+I have calledg myself 1231 times
+I have calledg myself 1232 times
+I have calledg myself 1233 times
+I have calledg myself 1234 times
+I have calledg myself 1235 times
+I have calledg myself 1236 times
+I have calledg myself 1237 times
+I have calledg myself 1238 times
+I have calledg myself 1239 times
+I have calledg myself 1240 times
+I have calledg myself 1241 times
+I have calledg myself 1242 times
+I have calledg myself 1243 times
+I have calledg myself 1244 times
+I have calledg myself 1245 times
+I have calledg myself 1246 times
+I have calledg myself 1247 times
+I have calledg myself 1248 times
+I have calledg myself 1249 times
+I have calledg myself 1250 times
+I have calledg myself 1251 times
+I have calledg myself 1252 times
+I have calledg myself 1253 times
+I have calledg myself 1254 times
+I have calledg myself 1255 times
+I have calledg myself 1256 times
+I have calledg myself 1257 times
+I have calledg myself 1258 times
+I have calledg myself 1259 times
+I have calledg myself 1260 times
+I have calledg myself 1261 times
+I have calledg myself 1262 times
+I have calledg myself 1263 times
+I have calledg myself 1264 times
+I have calledg myself 1265 times
+I have calledg myself 1266 times
+I have calledg myself 1267 times
+I have calledg myself 1268 times
+I have calledg myself 1269 times
+I have calledg myself 1270 times
+I have calledg myself 1271 times
+I have calledg myself 1272 times
+I have calledg myself 1273 times
+I have calledg myself 1274 times
+I have calledg myself 1275 times
+I have calledg myself 1276 times
+I have calledg myself 1277 times
+I have calledg myself 1278 times
+I have calledg myself 1279 times
+I have calledg myself 1280 times
+I have calledg myself 1281 times
+I have calledg myself 1282 times
+I have calledg myself 1283 times
+I have calledg myself 1284 times
+I have calledg myself 1285 times
+I have calledg myself 1286 times
+I have calledg myself 1287 times
+I have calledg myself 1288 times
+I have calledg myself 1289 times
+I have calledg myself 1290 times
+I have calledg myself 1291 times
+I have calledg myself 1292 times
+I have calledg myself 1293 times
+I have calledg myself 1294 times
+I have calledg myself 1295 times
+I have calledg myself 1296 times
+I have calledg myself 1297 times
+I have calledg myself 1298 times
+I have calledg myself 1299 times
+I have calledg myself 1300 times
+I have calledg myself 1301 times
+I have calledg myself 1302 times
+I have calledg myself 1303 times
+I have calledg myself 1304 times
+I have calledg myself 1305 times
+I have calledg myself 1306 times
+I have calledg myself 1307 times
+I have calledg myself 1308 times
+I have calledg myself 1309 times
+I have calledg myself 1310 times
+I have calledg myself 1311 times
+I have calledg myself 1312 times
+I have calledg myself 1313 times
+I have calledg myself 1314 times
+I have calledg myself 1315 times
+I have calledg myself 1316 times
+I have calledg myself 1317 times
+I have calledg myself 1318 times
+I have calledg myself 1319 times
+I have calledg myself 1320 times
+I have calledg myself 1321 times
+I have calledg myself 1322 times
+I have calledg myself 1323 times
+I have calledg myself 1324 times
+I have calledg myself 1325 times
+I have calledg myself 1326 times
+I have calledg myself 1327 times
+I have calledg myself 1328 times
+I have calledg myself 1329 times
+I have calledg myself 1330 times
+I have calledg myself 1331 times
+I have calledg myself 1332 times
+I have calledg myself 1333 times
+I have calledg myself 1334 times
+I have calledg myself 1335 times
+I have calledg myself 1336 times
+I have calledg myself 1337 times
+I have calledg myself 1338 times
+I have calledg myself 1339 times
+I have calledg myself 1340 times
+I have calledg myself 1341 times
+I have calledg myself 1342 times
+I have calledg myself 1343 times
+I have calledg myself 1344 times
+I have calledg myself 1345 times
+I have calledg myself 1346 times
+I have calledg myself 1347 times
+I have calledg myself 1348 times
+I have calledg myself 1349 times
+I have calledg myself 1350 times
+I have calledg myself 1351 times
+I have calledg myself 1352 times
+I have calledg myself 1353 times
+I have calledg myself 1354 times
+I have calledg myself 1355 times
+I have calledg myself 1356 times
+I have calledg myself 1357 times
+I have calledg myself 1358 times
+I have calledg myself 1359 times
+I have calledg myself 1360 times
+I have calledg myself 1361 times
+I have calledg myself 1362 times
+I have calledg myself 1363 times
+I have calledg myself 1364 times
+I have calledg myself 1365 times
+I have calledg myself 1366 times
+I have calledg myself 1367 times
+I have calledg myself 1368 times
+I have calledg myself 1369 times
+I have calledg myself 1370 times
+I have calledg myself 1371 times
+I have calledg myself 1372 times
+I have calledg myself 1373 times
+I have calledg myself 1374 times
+I have calledg myself 1375 times
+I have calledg myself 1376 times
+I have calledg myself 1377 times
+I have calledg myself 1378 times
+I have calledg myself 1379 times
+I have calledg myself 1380 times
+I have calledg myself 1381 times
+I have calledg myself 1382 times
+I have calledg myself 1383 times
+I have calledg myself 1384 times
+I have calledg myself 1385 times
+I have calledg myself 1386 times
+I have calledg myself 1387 times
+I have calledg myself 1388 times
+I have calledg myself 1389 times
+I have calledg myself 1390 times
+I have calledg myself 1391 times
+I have calledg myself 1392 times
+I have calledg myself 1393 times
+I have calledg myself 1394 times
+I have calledg myself 1395 times
+I have calledg myself 1396 times
+I have calledg myself 1397 times
+I have calledg myself 1398 times
+I have calledg myself 1399 times
+I have calledg myself 1400 times
+I have calledg myself 1401 times
+I have calledg myself 1402 times
+I have calledg myself 1403 times
+I have calledg myself 1404 times
+I have calledg myself 1405 times
+I have calledg myself 1406 times
+I have calledg myself 1407 times
+I have calledg myself 1408 times
+I have calledg myself 1409 times
+I have calledg myself 1410 times
+I have calledg myself 1411 times
+I have calledg myself 1412 times
+I have calledg myself 1413 times
+I have calledg myself 1414 times
+I have calledg myself 1415 times
+I have calledg myself 1416 times
+I have calledg myself 1417 times
+I have calledg myself 1418 times
+I have calledg myself 1419 times
+I have calledg myself 1420 times
+I have calledg myself 1421 times
+I have calledg myself 1422 times
+I have calledg myself 1423 times
+I have calledg myself 1424 times
+I have calledg myself 1425 times
+I have calledg myself 1426 times
+I have calledg myself 1427 times
+I have calledg myself 1428 times
+I have calledg myself 1429 times
+I have calledg myself 1430 times
+I have calledg myself 1431 times
+I have calledg myself 1432 times
+I have calledg myself 1433 times
+I have calledg myself 1434 times
+I have calledg myself 1435 times
+I have calledg myself 1436 times
+I have calledg myself 1437 times
+I have calledg myself 1438 times
+I have calledg myself 1439 times
+I have calledg myself 1440 times
+I have calledg myself 1441 times
+I have calledg myself 1442 times
+I have calledg myself 1443 times
+I have calledg myself 1444 times
+I have calledg myself 1445 times
+I have calledg myself 1446 times
+I have calledg myself 1447 times
+I have calledg myself 1448 times
+I have calledg myself 1449 times
+I have calledg myself 1450 times
+I have calledg myself 1451 times
+I have calledg myself 1452 times
+I have calledg myself 1453 times
+I have calledg myself 1454 times
+I have calledg myself 1455 times
+I have calledg myself 1456 times
+I have calledg myself 1457 times
+I have calledg myself 1458 times
+I have calledg myself 1459 times
+I have calledg myself 1460 times
+I have calledg myself 1461 times
+I have calledg myself 1462 times
+I have calledg myself 1463 times
+I have calledg myself 1464 times
+I have calledg myself 1465 times
+I have calledg myself 1466 times
+I have calledg myself 1467 times
+I have calledg myself 1468 times
+I have calledg myself 1469 times
+I have calledg myself 1470 times
+I have calledg myself 1471 times
+I have calledg myself 1472 times
+I have calledg myself 1473 times
+I have calledg myself 1474 times
+I have calledg myself 1475 times
+I have calledg myself 1476 times
+I have calledg myself 1477 times
+I have calledg myself 1478 times
+I have calledg myself 1479 times
+I have calledg myself 1480 times
+I have calledg myself 1481 times
+I have calledg myself 1482 times
+I have calledg myself 1483 times
+I have calledg myself 1484 times
+I have calledg myself 1485 times
+I have calledg myself 1486 times
+I have calledg myself 1487 times
+I have calledg myself 1488 times
+I have calledg myself 1489 times
+I have calledg myself 1490 times
+I have calledg myself 1491 times
+I have calledg myself 1492 times
+I have calledg myself 1493 times
+I have calledg myself 1494 times
+I have calledg myself 1495 times
+I have calledg myself 1496 times
+I have calledg myself 1497 times
+I have calledg myself 1498 times
+I have calledg myself 1499 times
+I have calledg myself 1500 times
+I have calledg myself 1501 times
+I have calledg myself 1502 times
+I have calledg myself 1503 times
+I have calledg myself 1504 times
+I have calledg myself 1505 times
+I have calledg myself 1506 times
+I have calledg myself 1507 times
+I have calledg myself 1508 times
+I have calledg myself 1509 times
+I have calledg myself 1510 times
+I have calledg myself 1511 times
+I have calledg myself 1512 times
+I have calledg myself 1513 times
+I have calledg myself 1514 times
+I have calledg myself 1515 times
+I have calledg myself 1516 times
+I have calledg myself 1517 times
+I have calledg myself 1518 times
+I have calledg myself 1519 times
+I have calledg myself 1520 times
+I have calledg myself 1521 times
+I have calledg myself 1522 times
+I have calledg myself 1523 times
+I have calledg myself 1524 times
+I have calledg myself 1525 times
+I have calledg myself 1526 times
+I have calledg myself 1527 times
+I have calledg myself 1528 times
+I have calledg myself 1529 times
+I have calledg myself 1530 times
+I have calledg myself 1531 times
+I have calledg myself 1532 times
+I have calledg myself 1533 times
+I have calledg myself 1534 times
+I have calledg myself 1535 times
+I have calledg myself 1536 times
+I have calledg myself 1537 times
+I have calledg myself 1538 times
+I have calledg myself 1539 times
+I have calledg myself 1540 times
+I have calledg myself 1541 times
+I have calledg myself 1542 times
+I have calledg myself 1543 times
+I have calledg myself 1544 times
+I have calledg myself 1545 times
+I have calledg myself 1546 times
+I have calledg myself 1547 times
+I have calledg myself 1548 times
+I have calledg myself 1549 times
+I have calledg myself 1550 times
+I have calledg myself 1551 times
+I have calledg myself 1552 times
+I have calledg myself 1553 times
+I have calledg myself 1554 times
+I have calledg myself 1555 times
+I have calledg myself 1556 times
+I have calledg myself 1557 times
+I have calledg myself 1558 times
+I have calledg myself 1559 times
+I have calledg myself 1560 times
+I have calledg myself 1561 times
+I have calledg myself 1562 times
+I have calledg myself 1563 times
+I have calledg myself 1564 times
+I have calledg myself 1565 times
+I have calledg myself 1566 times
+I have calledg myself 1567 times
+I have calledg myself 1568 times
+I have calledg myself 1569 times
+I have calledg myself 1570 times
+I have calledg myself 1571 times
+I have calledg myself 1572 times
+I have calledg myself 1573 times
+I have calledg myself 1574 times
+I have calledg myself 1575 times
+I have calledg myself 1576 times
+I have calledg myself 1577 times
+I have calledg myself 1578 times
+I have calledg myself 1579 times
+I have calledg myself 1580 times
+I have calledg myself 1581 times
+I have calledg myself 1582 times
+I have calledg myself 1583 times
+I have calledg myself 1584 times
+I have calledg myself 1585 times
+I have calledg myself 1586 times
+I have calledg myself 1587 times
+I have calledg myself 1588 times
+I have calledg myself 1589 times
+I have calledg myself 1590 times
+I have calledg myself 1591 times
+I have calledg myself 1592 times
+I have calledg myself 1593 times
+I have calledg myself 1594 times
+I have calledg myself 1595 times
+I have calledg myself 1596 times
+I have calledg myself 1597 times
+I have calledg myself 1598 times
+I have calledg myself 1599 times
+I have calledg myself 1600 times
+I have calledg myself 1601 times
+I have calledg myself 1602 times
+I have calledg myself 1603 times
+I have calledg myself 1604 times
+I have calledg myself 1605 times
+I have calledg myself 1606 times
+I have calledg myself 1607 times
+I have calledg myself 1608 times
+I have calledg myself 1609 times
+I have calledg myself 1610 times
+I have calledg myself 1611 times
+I have calledg myself 1612 times
+I have calledg myself 1613 times
+I have calledg myself 1614 times
+I have calledg myself 1615 times
+I have calledg myself 1616 times
+I have calledg myself 1617 times
+I have calledg myself 1618 times
+I have calledg myself 1619 times
+I have calledg myself 1620 times
+I have calledg myself 1621 times
+I have calledg myself 1622 times
+I have calledg myself 1623 times
+I have calledg myself 1624 times
+I have calledg myself 1625 times
+I have calledg myself 1626 times
+I have calledg myself 1627 times
+I have calledg myself 1628 times
+I have calledg myself 1629 times
+I have calledg myself 1630 times
+I have calledg myself 1631 times
+I have calledg myself 1632 times
+I have calledg myself 1633 times
+I have calledg myself 1634 times
+I have calledg myself 1635 times
+I have calledg myself 1636 times
+I have calledg myself 1637 times
+I have calledg myself 1638 times
+I have calledg myself 1639 times
+I have calledg myself 1640 times
+I have calledg myself 1641 times
+I have calledg myself 1642 times
+I have calledg myself 1643 times
+I have calledg myself 1644 times
+I have calledg myself 1645 times
+I have calledg myself 1646 times
+I have calledg myself 1647 times
+I have calledg myself 1648 times
+I have calledg myself 1649 times
+I have calledg myself 1650 times
+I have calledg myself 1651 times
+I have calledg myself 1652 times
+I have calledg myself 1653 times
+I have calledg myself 1654 times
+I have calledg myself 1655 times
+I have calledg myself 1656 times
+I have calledg myself 1657 times
+I have calledg myself 1658 times
+I have calledg myself 1659 times
+I have calledg myself 1660 times
+I have calledg myself 1661 times
+I have calledg myself 1662 times
+I have calledg myself 1663 times
+I have calledg myself 1664 times
+I have calledg myself 1665 times
+I have calledg myself 1666 times
+I have calledg myself 1667 times
+I have calledg myself 1668 times
+I have calledg myself 1669 times
+I have calledg myself 1670 times
+I have calledg myself 1671 times
+I have calledg myself 1672 times
+I have calledg myself 1673 times
+I have calledg myself 1674 times
+I have calledg myself 1675 times
+I have calledg myself 1676 times
+I have calledg myself 1677 times
+I have calledg myself 1678 times
+I have calledg myself 1679 times
+I have calledg myself 1680 times
+I have calledg myself 1681 times
+I have calledg myself 1682 times
+I have calledg myself 1683 times
+I have calledg myself 1684 times
+I have calledg myself 1685 times
+I have calledg myself 1686 times
+I have calledg myself 1687 times
+I have calledg myself 1688 times
+I have calledg myself 1689 times
+I have calledg myself 1690 times
+I have calledg myself 1691 times
+I have calledg myself 1692 times
+I have calledg myself 1693 times
+I have calledg myself 1694 times
+I have calledg myself 1695 times
+I have calledg myself 1696 times
+I have calledg myself 1697 times
+I have calledg myself 1698 times
+I have calledg myself 1699 times
+I have calledg myself 1700 times
+I have calledg myself 1701 times
+I have calledg myself 1702 times
+I have calledg myself 1703 times
+I have calledg myself 1704 times
+I have calledg myself 1705 times
+I have calledg myself 1706 times
+I have calledg myself 1707 times
+I have calledg myself 1708 times
+I have calledg myself 1709 times
+I have calledg myself 1710 times
+I have calledg myself 1711 times
+I have calledg myself 1712 times
+I have calledg myself 1713 times
+I have calledg myself 1714 times
+I have calledg myself 1715 times
+I have calledg myself 1716 times
+I have calledg myself 1717 times
+I have calledg myself 1718 times
+I have calledg myself 1719 times
+I have calledg myself 1720 times
+I have calledg myself 1721 times
+I have calledg myself 1722 times
+I have calledg myself 1723 times
+I have calledg myself 1724 times
+I have calledg myself 1725 times
+I have calledg myself 1726 times
+I have calledg myself 1727 times
+I have calledg myself 1728 times
+I have calledg myself 1729 times
+I have calledg myself 1730 times
+I have calledg myself 1731 times
+I have calledg myself 1732 times
+I have calledg myself 1733 times
+I have calledg myself 1734 times
+I have calledg myself 1735 times
+I have calledg myself 1736 times
+I have calledg myself 1737 times
+I have calledg myself 1738 times
+I have calledg myself 1739 times
+I have calledg myself 1740 times
+I have calledg myself 1741 times
+I have calledg myself 1742 times
+I have calledg myself 1743 times
+I have calledg myself 1744 times
+I have calledg myself 1745 times
+I have calledg myself 1746 times
+I have calledg myself 1747 times
+I have calledg myself 1748 times
+I have calledg myself 1749 times
+I have calledg myself 1750 times
+I have calledg myself 1751 times
+I have calledg myself 1752 times
+I have calledg myself 1753 times
+I have calledg myself 1754 times
+I have calledg myself 1755 times
+I have calledg myself 1756 times
+I have calledg myself 1757 times
+I have calledg myself 1758 times
+I have calledg myself 1759 times
+I have calledg myself 1760 times
+I have calledg myself 1761 times
+I have calledg myself 1762 times
+I have calledg myself 1763 times
+I have calledg myself 1764 times
+I have calledg myself 1765 times
+I have calledg myself 1766 times
+I have calledg myself 1767 times
+I have calledg myself 1768 times
+I have calledg myself 1769 times
+I have calledg myself 1770 times
+I have calledg myself 1771 times
+I have calledg myself 1772 times
+I have calledg myself 1773 times
+I have calledg myself 1774 times
+I have calledg myself 1775 times
+I have calledg myself 1776 times
+I have calledg myself 1777 times
+I have calledg myself 1778 times
+I have calledg myself 1779 times
+I have calledg myself 1780 times
+I have calledg myself 1781 times
+I have calledg myself 1782 times
+I have calledg myself 1783 times
+I have calledg myself 1784 times
+I have calledg myself 1785 times
+I have calledg myself 1786 times
+I have calledg myself 1787 times
+I have calledg myself 1788 times
+I have calledg myself 1789 times
+I have calledg myself 1790 times
+I have calledg myself 1791 times
+I have calledg myself 1792 times
+I have calledg myself 1793 times
+I have calledg myself 1794 times
+I have calledg myself 1795 times
+I have calledg myself 1796 times
+I have calledg myself 1797 times
+I have calledg myself 1798 times
+I have calledg myself 1799 times
+I have calledg myself 1800 times
+I have calledg myself 1801 times
+I have calledg myself 1802 times
+I have calledg myself 1803 times
+I have calledg myself 1804 times
+I have calledg myself 1805 times
+I have calledg myself 1806 times
+I have calledg myself 1807 times
+I have calledg myself 1808 times
+I have calledg myself 1809 times
+I have calledg myself 1810 times
+I have calledg myself 1811 times
+I have calledg myself 1812 times
+I have calledg myself 1813 times
+I have calledg myself 1814 times
+I have calledg myself 1815 times
+I have calledg myself 1816 times
+I have calledg myself 1817 times
+I have calledg myself 1818 times
+I have calledg myself 1819 times
+I have calledg myself 1820 times
+I have calledg myself 1821 times
+I have calledg myself 1822 times
+I have calledg myself 1823 times
+I have calledg myself 1824 times
+I have calledg myself 1825 times
+I have calledg myself 1826 times
+I have calledg myself 1827 times
+I have calledg myself 1828 times
+I have calledg myself 1829 times
+I have calledg myself 1830 times
+I have calledg myself 1831 times
+I have calledg myself 1832 times
+I have calledg myself 1833 times
+I have calledg myself 1834 times
+I have calledg myself 1835 times
+I have calledg myself 1836 times
+I have calledg myself 1837 times
+I have calledg myself 1838 times
+I have calledg myself 1839 times
+I have calledg myself 1840 times
+I have calledg myself 1841 times
+I have calledg myself 1842 times
+I have calledg myself 1843 times
+I have calledg myself 1844 times
+I have calledg myself 1845 times
+I have calledg myself 1846 times
+I have calledg myself 1847 times
+I have calledg myself 1848 times
+I have calledg myself 1849 times
+I have calledg myself 1850 times
+I have calledg myself 1851 times
+I have calledg myself 1852 times
+I have calledg myself 1853 times
+I have calledg myself 1854 times
+I have calledg myself 1855 times
+I have calledg myself 1856 times
+I have calledg myself 1857 times
+I have calledg myself 1858 times
+I have calledg myself 1859 times
+I have calledg myself 1860 times
+I have calledg myself 1861 times
+I have calledg myself 1862 times
+I have calledg myself 1863 times
+I have calledg myself 1864 times
+I have calledg myself 1865 times
+I have calledg myself 1866 times
+I have calledg myself 1867 times
+I have calledg myself 1868 times
+I have calledg myself 1869 times
+I have calledg myself 1870 times
+I have calledg myself 1871 times
+I have calledg myself 1872 times
+I have calledg myself 1873 times
+I have calledg myself 1874 times
+I have calledg myself 1875 times
+I have calledg myself 1876 times
+I have calledg myself 1877 times
+I have calledg myself 1878 times
+I have calledg myself 1879 times
+I have calledg myself 1880 times
+I have calledg myself 1881 times
+I have calledg myself 1882 times
+I have calledg myself 1883 times
+I have calledg myself 1884 times
+I have calledg myself 1885 times
+I have calledg myself 1886 times
+I have calledg myself 1887 times
+I have calledg myself 1888 times
+I have calledg myself 1889 times
+I have calledg myself 1890 times
+I have calledg myself 1891 times
+I have calledg myself 1892 times
+I have calledg myself 1893 times
+I have calledg myself 1894 times
+I have calledg myself 1895 times
+I have calledg myself 1896 times
+I have calledg myself 1897 times
+I have calledg myself 1898 times
+I have calledg myself 1899 times
+I have calledg myself 1900 times
+I have calledg myself 1901 times
+I have calledg myself 1902 times
+I have calledg myself 1903 times
+I have calledg myself 1904 times
+I have calledg myself 1905 times
+I have calledg myself 1906 times
+I have calledg myself 1907 times
+I have calledg myself 1908 times
+I have calledg myself 1909 times
+I have calledg myself 1910 times
+I have calledg myself 1911 times
+I have calledg myself 1912 times
+I have calledg myself 1913 times
+I have calledg myself 1914 times
+I have calledg myself 1915 times
+I have calledg myself 1916 times
+I have calledg myself 1917 times
+I have calledg myself 1918 times
+I have calledg myself 1919 times
+I have calledg myself 1920 times
+I have calledg myself 1921 times
+I have calledg myself 1922 times
+I have calledg myself 1923 times
+I have calledg myself 1924 times
+I have calledg myself 1925 times
+I have calledg myself 1926 times
+I have calledg myself 1927 times
+I have calledg myself 1928 times
+I have calledg myself 1929 times
+I have calledg myself 1930 times
+I have calledg myself 1931 times
+I have calledg myself 1932 times
+I have calledg myself 1933 times
+I have calledg myself 1934 times
+I have calledg myself 1935 times
+I have calledg myself 1936 times
+I have calledg myself 1937 times
+I have calledg myself 1938 times
+I have calledg myself 1939 times
+I have calledg myself 1940 times
+I have calledg myself 1941 times
+I have calledg myself 1942 times
+I have calledg myself 1943 times
+I have calledg myself 1944 times
+I have calledg myself 1945 times
+I have calledg myself 1946 times
+I have calledg myself 1947 times
+I have calledg myself 1948 times
+I have calledg myself 1949 times
+I have calledg myself 1950 times
+I have calledg myself 1951 times
+I have calledg myself 1952 times
+I have calledg myself 1953 times
+I have calledg myself 1954 times
+I have calledg myself 1955 times
+I have calledg myself 1956 times
+I have calledg myself 1957 times
+I have calledg myself 1958 times
+I have calledg myself 1959 times
+I have calledg myself 1960 times
+I have calledg myself 1961 times
+I have calledg myself 1962 times
+I have calledg myself 1963 times
+I have calledg myself 1964 times
+I have calledg myself 1965 times
+I have calledg myself 1966 times
+I have calledg myself 1967 times
+I have calledg myself 1968 times
+I have calledg myself 1969 times
+I have calledg myself 1970 times
+I have calledg myself 1971 times
+I have calledg myself 1972 times
+I have calledg myself 1973 times
+I have calledg myself 1974 times
+I have calledg myself 1975 times
+I have calledg myself 1976 times
+I have calledg myself 1977 times
+I have calledg myself 1978 times
+I have calledg myself 1979 times
+I have calledg myself 1980 times
+I have calledg myself 1981 times
+I have calledg myself 1982 times
+I have calledg myself 1983 times
+I have calledg myself 1984 times
+I have calledg myself 1985 times
+I have calledg myself 1986 times
+I have calledg myself 1987 times
+I have calledg myself 1988 times
+I have calledg myself 1989 times
+I have calledg myself 1990 times
+I have calledg myself 1991 times
+I have calledg myself 1992 times
+I have calledg myself 1993 times
+I have calledg myself 1994 times
+I have calledg myself 1995 times
+I have calledg myself 1996 times
+I have calledg myself 1997 times
+I have calledg myself 1998 times
+I have calledg myself 1999 times
+I have calledg myself 2000 times
+I have calledg myself 2001 times
+I have calledg myself 2002 times
+I have calledg myself 2003 times
+I have calledg myself 2004 times
+I have calledg myself 2005 times
+I have calledg myself 2006 times
+I have calledg myself 2007 times
+I have calledg myself 2008 times
+I have calledg myself 2009 times
+I have calledg myself 2010 times
+I have calledg myself 2011 times
+I have calledg myself 2012 times
+I have calledg myself 2013 times
+I have calledg myself 2014 times
+I have calledg myself 2015 times
+I have calledg myself 2016 times
+I have calledg myself 2017 times
+I have calledg myself 2018 times
+I have calledg myself 2019 times
+I have calledg myself 2020 times
+I have calledg myself 2021 times
+I have calledg myself 2022 times
+I have calledg myself 2023 times
+I have calledg myself 2024 times
+I have calledg myself 2025 times
+I have calledg myself 2026 times
+I have calledg myself 2027 times
+I have calledg myself 2028 times
+I have calledg myself 2029 times
+I have calledg myself 2030 times
+I have calledg myself 2031 times
+I have calledg myself 2032 times
+I have calledg myself 2033 times
+I have calledg myself 2034 times
+I have calledg myself 2035 times
+I have calledg myself 2036 times
+I have calledg myself 2037 times
+I have calledg myself 2038 times
+I have calledg myself 2039 times
+I have calledg myself 2040 times
+I have calledg myself 2041 times
+I have calledg myself 2042 times
+I have calledg myself 2043 times
+I have calledg myself 2044 times
+I have calledg myself 2045 times
+I have calledg myself 2046 times
+I have calledg myself 2047 times
+I have calledg myself 2048 times
+I have calledg myself 2049 times
+I have calledg myself 2050 times
+I have calledg myself 2051 times
+I have calledg myself 2052 times
+I have calledg myself 2053 times
+I have calledg myself 2054 times
+I have calledg myself 2055 times
+I have calledg myself 2056 times
+I have calledg myself 2057 times
+I have calledg myself 2058 times
+I have calledg myself 2059 times
+I have calledg myself 2060 times
+I have calledg myself 2061 times
+I have calledg myself 2062 times
+I have calledg myself 2063 times
+I have calledg myself 2064 times
+I have calledg myself 2065 times
+I have calledg myself 2066 times
+I have calledg myself 2067 times
+I have calledg myself 2068 times
+I have calledg myself 2069 times
+I have calledg myself 2070 times
+I have calledg myself 2071 times
+I have calledg myself 2072 times
+I have calledg myself 2073 times
+I have calledg myself 2074 times
+I have calledg myself 2075 times
+I have calledg myself 2076 times
+I have calledg myself 2077 times
+I have calledg myself 2078 times
+I have calledg myself 2079 times
+I have calledg myself 2080 times
+I have calledg myself 2081 times
+I have calledg myself 2082 times
+I have calledg myself 2083 times
+I have calledg myself 2084 times
+I have calledg myself 2085 times
+I have calledg myself 2086 times
+I have calledg myself 2087 times
+I have calledg myself 2088 times
+I have calledg myself 2089 times
+I have calledg myself 2090 times
+I have calledg myself 2091 times
+I have calledg myself 2092 times
+I have calledg myself 2093 times
+I have calledg myself 2094 times
+I have calledg myself 2095 times
+I have calledg myself 2096 times
+I have calledg myself 2097 times
+I have calledg myself 2098 times
+I have calledg myself 2099 times
+I have calledg myself 2100 times
+I have calledg myself 2101 times
+I have calledg myself 2102 times
+I have calledg myself 2103 times
+I have calledg myself 2104 times
+I have calledg myself 2105 times
+I have calledg myself 2106 times
+I have calledg myself 2107 times
+I have calledg myself 2108 times
+I have calledg myself 2109 times
+I have calledg myself 2110 times
+I have calledg myself 2111 times
+I have calledg myself 2112 times
+I have calledg myself 2113 times
+I have calledg myself 2114 times
+I have calledg myself 2115 times
+I have calledg myself 2116 times
+I have calledg myself 2117 times
+I have calledg myself 2118 times
+I have calledg myself 2119 times
+I have calledg myself 2120 times
+I have calledg myself 2121 times
+I have calledg myself 2122 times
+I have calledg myself 2123 times
+I have calledg myself 2124 times
+I have calledg myself 2125 times
+I have calledg myself 2126 times
+I have calledg myself 2127 times
+I have calledg myself 2128 times
+I have calledg myself 2129 times
+I have calledg myself 2130 times
+I have calledg myself 2131 times
+I have calledg myself 2132 times
+I have calledg myself 2133 times
+I have calledg myself 2134 times
+I have calledg myself 2135 times
+I have calledg myself 2136 times
+I have calledg myself 2137 times
+I have calledg myself 2138 times
+I have calledg myself 2139 times
+I have calledg myself 2140 times
+I have calledg myself 2141 times
+I have calledg myself 2142 times
+I have calledg myself 2143 times
+I have calledg myself 2144 times
+I have calledg myself 2145 times
+I have calledg myself 2146 times
+I have calledg myself 2147 times
+I have calledg myself 2148 times
+I have calledg myself 2149 times
+I have calledg myself 2150 times
+I have calledg myself 2151 times
+I have calledg myself 2152 times
+I have calledg myself 2153 times
+I have calledg myself 2154 times
+I have calledg myself 2155 times
+I have calledg myself 2156 times
+I have calledg myself 2157 times
+I have calledg myself 2158 times
+I have calledg myself 2159 times
+I have calledg myself 2160 times
+I have calledg myself 2161 times
+I have calledg myself 2162 times
+I have calledg myself 2163 times
+I have calledg myself 2164 times
+I have calledg myself 2165 times
+I have calledg myself 2166 times
+I have calledg myself 2167 times
+I have calledg myself 2168 times
+I have calledg myself 2169 times
+I have calledg myself 2170 times
+I have calledg myself 2171 times
+I have calledg myself 2172 times
+I have calledg myself 2173 times
+I have calledg myself 2174 times
+I have calledg myself 2175 times
+I have calledg myself 2176 times
+I have calledg myself 2177 times
+I have calledg myself 2178 times
+I have calledg myself 2179 times
+I have calledg myself 2180 times
+I have calledg myself 2181 times
+I have calledg myself 2182 times
+I have calledg myself 2183 times
+I have calledg myself 2184 times
+I have calledg myself 2185 times
+I have calledg myself 2186 times
+I have calledg myself 2187 times
+I have calledg myself 2188 times
+I have calledg myself 2189 times
+I have calledg myself 2190 times
+I have calledg myself 2191 times
+I have calledg myself 2192 times
+I have calledg myself 2193 times
+I have calledg myself 2194 times
+I have calledg myself 2195 times
+I have calledg myself 2196 times
+I have calledg myself 2197 times
+I have calledg myself 2198 times
+I have calledg myself 2199 times
+I have calledg myself 2200 times
+I have calledg myself 2201 times
+I have calledg myself 2202 times
+I have calledg myself 2203 times
+I have calledg myself 2204 times
+I have calledg myself 2205 times
+I have calledg myself 2206 times
+I have calledg myself 2207 times
+I have calledg myself 2208 times
+I have calledg myself 2209 times
+I have calledg myself 2210 times
+I have calledg myself 2211 times
+I have calledg myself 2212 times
+I have calledg myself 2213 times
+I have calledg myself 2214 times
+I have calledg myself 2215 times
+I have calledg myself 2216 times
+I have calledg myself 2217 times
+I have calledg myself 2218 times
+I have calledg myself 2219 times
+I have calledg myself 2220 times
+I have calledg myself 2221 times
+I have calledg myself 2222 times
+I have calledg myself 2223 times
+I have calledg myself 2224 times
+I have calledg myself 2225 times
+I have calledg myself 2226 times
+I have calledg myself 2227 times
+I have calledg myself 2228 times
+I have calledg myself 2229 times
+I have calledg myself 2230 times
+I have calledg myself 2231 times
+I have calledg myself 2232 times
+I have calledg myself 2233 times
+I have calledg myself 2234 times
+I have calledg myself 2235 times
+I have calledg myself 2236 times
+I have calledg myself 2237 times
+I have calledg myself 2238 times
+I have calledg myself 2239 times
+I have calledg myself 2240 times
+I have calledg myself 2241 times
+I have calledg myself 2242 times
+I have calledg myself 2243 times
+I have calledg myself 2244 times
+I have calledg myself 2245 times
+I have calledg myself 2246 times
+I have calledg myself 2247 times
+I have calledg myself 2248 times
+I have calledg myself 2249 times
+I have calledg myself 2250 times
+I have calledg myself 2251 times
+I have calledg myself 2252 times
+I have calledg myself 2253 times
+I have calledg myself 2254 times
+I have calledg myself 2255 times
+I have calledg myself 2256 times
+I have calledg myself 2257 times
+I have calledg myself 2258 times
+I have calledg myself 2259 times
+I have calledg myself 2260 times
+I have calledg myself 2261 times
+I have calledg myself 2262 times
+I have calledg myself 2263 times
+I have calledg myself 2264 times
+I have calledg myself 2265 times
+I have calledg myself 2266 times
+I have calledg myself 2267 times
+I have calledg myself 2268 times
+I have calledg myself 2269 times
+I have calledg myself 2270 times
+I have calledg myself 2271 times
+I have calledg myself 2272 times
+I have calledg myself 2273 times
+I have calledg myself 2274 times
+I have calledg myself 2275 times
+I have calledg myself 2276 times
+I have calledg myself 2277 times
+I have calledg myself 2278 times
+I have calledg myself 2279 times
+I have calledg myself 2280 times
+I have calledg myself 2281 times
+I have calledg myself 2282 times
+I have calledg myself 2283 times
+I have calledg myself 2284 times
+I have calledg myself 2285 times
+I have calledg myself 2286 times
+I have calledg myself 2287 times
+I have calledg myself 2288 times
+I have calledg myself 2289 times
+I have calledg myself 2290 times
+I have calledg myself 2291 times
+I have calledg myself 2292 times
+I have calledg myself 2293 times
+I have calledg myself 2294 times
+I have calledg myself 2295 times
+I have calledg myself 2296 times
+I have calledg myself 2297 times
+I have calledg myself 2298 times
+I have calledg myself 2299 times
+I have calledg myself 2300 times
+I have calledg myself 2301 times
+I have calledg myself 2302 times
+I have calledg myself 2303 times
+I have calledg myself 2304 times
+I have calledg myself 2305 times
+I have calledg myself 2306 times
+I have calledg myself 2307 times
+I have calledg myself 2308 times
+I have calledg myself 2309 times
+I have calledg myself 2310 times
+I have calledg myself 2311 times
+I have calledg myself 2312 times
+I have calledg myself 2313 times
+I have calledg myself 2314 times
+I have calledg myself 2315 times
+I have calledg myself 2316 times
+I have calledg myself 2317 times
+I have calledg myself 2318 times
+I have calledg myself 2319 times
+I have calledg myself 2320 times
+I have calledg myself 2321 times
+I have calledg myself 2322 times
+I have calledg myself 2323 times
+I have calledg myself 2324 times
+I have calledg myself 2325 times
+I have calledg myself 2326 times
+I have calledg myself 2327 times
+I have calledg myself 2328 times
+I have calledg myself 2329 times
+I have calledg myself 2330 times
+I have calledg myself 2331 times
+I have calledg myself 2332 times
+I have calledg myself 2333 times
+I have calledg myself 2334 times
+I have calledg myself 2335 times
+I have calledg myself 2336 times
+I have calledg myself 2337 times
+I have calledg myself 2338 times
+I have calledg myself 2339 times
+I have calledg myself 2340 times
+I have calledg myself 2341 times
+I have calledg myself 2342 times
+I have calledg myself 2343 times
+I have calledg myself 2344 times
+I have calledg myself 2345 times
+I have calledg myself 2346 times
+I have calledg myself 2347 times
+I have calledg myself 2348 times
+I have calledg myself 2349 times
+I have calledg myself 2350 times
+I have calledg myself 2351 times
+I have calledg myself 2352 times
+I have calledg myself 2353 times
+I have calledg myself 2354 times
+I have calledg myself 2355 times
+I have calledg myself 2356 times
+I have calledg myself 2357 times
+I have calledg myself 2358 times
+I have calledg myself 2359 times
+I have calledg myself 2360 times
+I have calledg myself 2361 times
+I have calledg myself 2362 times
+I have calledg myself 2363 times
+I have calledg myself 2364 times
+I have calledg myself 2365 times
+I have calledg myself 2366 times
+I have calledg myself 2367 times
+I have calledg myself 2368 times
+I have calledg myself 2369 times
+I have calledg myself 2370 times
+I have calledg myself 2371 times
+I have calledg myself 2372 times
+I have calledg myself 2373 times
+I have calledg myself 2374 times
+I have calledg myself 2375 times
+I have calledg myself 2376 times
+I have calledg myself 2377 times
+I have calledg myself 2378 times
+I have calledg myself 2379 times
+I have calledg myself 2380 times
+I have calledg myself 2381 times
+I have calledg myself 2382 times
+I have calledg myself 2383 times
+I have calledg myself 2384 times
+I have calledg myself 2385 times
+I have calledg myself 2386 times
+I have calledg myself 2387 times
+I have calledg myself 2388 times
+I have calledg myself 2389 times
+I have calledg myself 2390 times
+I have calledg myself 2391 times
+I have calledg myself 2392 times
+I have calledg myself 2393 times
+I have calledg myself 2394 times
+I have calledg myself 2395 times
+I have calledg myself 2396 times
+I have calledg myself 2397 times
+I have calledg myself 2398 times
+I have calledg myself 2399 times
+I have calledg myself 2400 times
+I have calledg myself 2401 times
+I have calledg myself 2402 times
+I have calledg myself 2403 times
+I have calledg myself 2404 times
+I have calledg myself 2405 times
+I have calledg myself 2406 times
+I have calledg myself 2407 times
+I have calledg myself 2408 times
+I have calledg myself 2409 times
+I have calledg myself 2410 times
+I have calledg myself 2411 times
+I have calledg myself 2412 times
+I have calledg myself 2413 times
+I have calledg myself 2414 times
+I have calledg myself 2415 times
+I have calledg myself 2416 times
+I have calledg myself 2417 times
+I have calledg myself 2418 times
+I have calledg myself 2419 times
+I have calledg myself 2420 times
+I have calledg myself 2421 times
+I have calledg myself 2422 times
+I have calledg myself 2423 times
+I have calledg myself 2424 times
+I have calledg myself 2425 times
+I have calledg myself 2426 times
+I have calledg myself 2427 times
+I have calledg myself 2428 times
+I have calledg myself 2429 times
+I have calledg myself 2430 times
+I have calledg myself 2431 times
+I have calledg myself 2432 times
+I have calledg myself 2433 times
+I have calledg myself 2434 times
+I have calledg myself 2435 times
+I have calledg myself 2436 times
+I have calledg myself 2437 times
+I have calledg myself 2438 times
+I have calledg myself 2439 times
+I have calledg myself 2440 times
+I have calledg myself 2441 times
+I have calledg myself 2442 times
+I have calledg myself 2443 times
+I have calledg myself 2444 times
+I have calledg myself 2445 times
+I have calledg myself 2446 times
+I have calledg myself 2447 times
+I have calledg myself 2448 times
+I have calledg myself 2449 times
+I have calledg myself 2450 times
+I have calledg myself 2451 times
+I have calledg myself 2452 times
+I have calledg myself 2453 times
+I have calledg myself 2454 times
+I have calledg myself 2455 times
+I have calledg myself 2456 times
+I have calledg myself 2457 times
+I have calledg myself 2458 times
+I have calledg myself 2459 times
+I have calledg myself 2460 times
+I have calledg myself 2461 times
+I have calledg myself 2462 times
+I have calledg myself 2463 times
+I have calledg myself 2464 times
+I have calledg myself 2465 times
+I have calledg myself 2466 times
+I have calledg myself 2467 times
+I have calledg myself 2468 times
+I have calledg myself 2469 times
+I have calledg myself 2470 times
+I have calledg myself 2471 times
+I have calledg myself 2472 times
+I have calledg myself 2473 times
+I have calledg myself 2474 times
+I have calledg myself 2475 times
+I have calledg myself 2476 times
+I have calledg myself 2477 times
+I have calledg myself 2478 times
+I have calledg myself 2479 times
+I have calledg myself 2480 times
+I have calledg myself 2481 times
+I have calledg myself 2482 times
+I have calledg myself 2483 times
+I have calledg myself 2484 times
+I have calledg myself 2485 times
+I have calledg myself 2486 times
+I have calledg myself 2487 times
+I have calledg myself 2488 times
+I have calledg myself 2489 times
+I have calledg myself 2490 times
+I have calledg myself 2491 times
+I have calledg myself 2492 times
+I have calledg myself 2493 times
+I have calledg myself 2494 times
+I have calledg myself 2495 times
+I have calledg myself 2496 times
+I have calledg myself 2497 times
+I have calledg myself 2498 times
+I have calledg myself 2499 times
+I have calledg myself 2500 times
+I have calledg myself 2501 times
+I have calledg myself 2502 times
+I have calledg myself 2503 times
+I have calledg myself 2504 times
+I have calledg myself 2505 times
+I have calledg myself 2506 times
+I have calledg myself 2507 times
+I have calledg myself 2508 times
+I have calledg myself 2509 times
+I have calledg myself 2510 times
+I have calledg myself 2511 times
+I have calledg myself 2512 times
+I have calledg myself 2513 times
+I have calledg myself 2514 times
+I have calledg myself 2515 times
+I have calledg myself 2516 times
+I have calledg myself 2517 times
+I have calledg myself 2518 times
+I have calledg myself 2519 times
+I have calledg myself 2520 times
+I have calledg myself 2521 times
+I have calledg myself 2522 times
+I have calledg myself 2523 times
+I have calledg myself 2524 times
+I have calledg myself 2525 times
+I have calledg myself 2526 times
+I have calledg myself 2527 times
+I have calledg myself 2528 times
+I have calledg myself 2529 times
+I have calledg myself 2530 times
+I have calledg myself 2531 times
+I have calledg myself 2532 times
+I have calledg myself 2533 times
+I have calledg myself 2534 times
+I have calledg myself 2535 times
+I have calledg myself 2536 times
+I have calledg myself 2537 times
+I have calledg myself 2538 times
+I have calledg myself 2539 times
+I have calledg myself 2540 times
+I have calledg myself 2541 times
+I have calledg myself 2542 times
+I have calledg myself 2543 times
+I have calledg myself 2544 times
+I have calledg myself 2545 times
+I have calledg myself 2546 times
+I have calledg myself 2547 times
+I have calledg myself 2548 times
+I have calledg myself 2549 times
+I have calledg myself 2550 times
+I have calledg myself 2551 times
+I have calledg myself 2552 times
+I have calledg myself 2553 times
+I have calledg myself 2554 times
+I have calledg myself 2555 times
+I have calledg myself 2556 times
+I have calledg myself 2557 times
+I have calledg myself 2558 times
+I have calledg myself 2559 times
+I have calledg myself 2560 times
+I have calledg myself 2561 times
+I have calledg myself 2562 times
+I have calledg myself 2563 times
+I have calledg myself 2564 times
+I have calledg myself 2565 times
+I have calledg myself 2566 times
+I have calledg myself 2567 times
+I have calledg myself 2568 times
+I have calledg myself 2569 times
+I have calledg myself 2570 times
+I have calledg myself 2571 times
+I have calledg myself 2572 times
+I have calledg myself 2573 times
+I have calledg myself 2574 times
+I have calledg myself 2575 times
+I have calledg myself 2576 times
+I have calledg myself 2577 times
+I have calledg myself 2578 times
+I have calledg myself 2579 times
+I have calledg myself 2580 times
+I have calledg myself 2581 times
+I have calledg myself 2582 times
+I have calledg myself 2583 times
+I have calledg myself 2584 times
+I have calledg myself 2585 times
+I have calledg myself 2586 times
+I have calledg myself 2587 times
+I have calledg myself 2588 times
+I have calledg myself 2589 times
+I have calledg myself 2590 times
+I have calledg myself 2591 times
+I have calledg myself 2592 times
+I have calledg myself 2593 times
+I have calledg myself 2594 times
+I have calledg myself 2595 times
+I have calledg myself 2596 times
+I have calledg myself 2597 times
+I have calledg myself 2598 times
+I have calledg myself 2599 times
+I have calledg myself 2600 times
+I have calledg myself 2601 times
+I have calledg myself 2602 times
+I have calledg myself 2603 times
+I have calledg myself 2604 times
+I have calledg myself 2605 times
+I have calledg myself 2606 times
+I have calledg myself 2607 times
+I have calledg myself 2608 times
+I have calledg myself 2609 times
+I have calledg myself 2610 times
+I have calledg myself 2611 times
+I have calledg myself 2612 times
+I have calledg myself 2613 times
+I have calledg myself 2614 times
+I have calledg myself 2615 times
+I have calledg myself 2616 times
+I have calledg myself 2617 times
+I have calledg myself 2618 times
+I have calledg myself 2619 times
+I have calledg myself 2620 times
+I have calledg myself 2621 times
+I have calledg myself 2622 times
+I have calledg myself 2623 times
+I have calledg myself 2624 times
+I have calledg myself 2625 times
+I have calledg myself 2626 times
+I have calledg myself 2627 times
+I have calledg myself 2628 times
+I have calledg myself 2629 times
+I have calledg myself 2630 times
+I have calledg myself 2631 times
+I have calledg myself 2632 times
+I have calledg myself 2633 times
+I have calledg myself 2634 times
+I have calledg myself 2635 times
+I have calledg myself 2636 times
+I have calledg myself 2637 times
+I have calledg myself 2638 times
+I have calledg myself 2639 times
+I have calledg myself 2640 times
+I have calledg myself 2641 times
+I have calledg myself 2642 times
+I have calledg myself 2643 times
+I have calledg myself 2644 times
+I have calledg myself 2645 times
+I have calledg myself 2646 times
+I have calledg myself 2647 times
+I have calledg myself 2648 times
+I have calledg myself 2649 times
+I have calledg myself 2650 times
+I have calledg myself 2651 times
+I have calledg myself 2652 times
+I have calledg myself 2653 times
+I have calledg myself 2654 times
+I have calledg myself 2655 times
+I have calledg myself 2656 times
+I have calledg myself 2657 times
+I have calledg myself 2658 times
+I have calledg myself 2659 times
+I have calledg myself 2660 times
+I have calledg myself 2661 times
+I have calledg myself 2662 times
+I have calledg myself 2663 times
+I have calledg myself 2664 times
+I have calledg myself 2665 times
+I have calledg myself 2666 times
+I have calledg myself 2667 times
+I have calledg myself 2668 times
+I have calledg myself 2669 times
+I have calledg myself 2670 times
+I have calledg myself 2671 times
+I have calledg myself 2672 times
+I have calledg myself 2673 times
+I have calledg myself 2674 times
+I have calledg myself 2675 times
+I have calledg myself 2676 times
+I have calledg myself 2677 times
+I have calledg myself 2678 times
+I have calledg myself 2679 times
+I have calledg myself 2680 times
+I have calledg myself 2681 times
+I have calledg myself 2682 times
+I have calledg myself 2683 times
+I have calledg myself 2684 times
+I have calledg myself 2685 times
+I have calledg myself 2686 times
+I have calledg myself 2687 times
+I have calledg myself 2688 times
+I have calledg myself 2689 times
+I have calledg myself 2690 times
+I have calledg myself 2691 times
+I have calledg myself 2692 times
+I have calledg myself 2693 times
+I have calledg myself 2694 times
+I have calledg myself 2695 times
+I have calledg myself 2696 times
+I have calledg myself 2697 times
+I have calledg myself 2698 times
+I have calledg myself 2699 times
+I have calledg myself 2700 times
+I have calledg myself 2701 times
+I have calledg myself 2702 times
+I have calledg myself 2703 times
+I have calledg myself 2704 times
+I have calledg myself 2705 times
+I have calledg myself 2706 times
+I have calledg myself 2707 times
+I have calledg myself 2708 times
+I have calledg myself 2709 times
+I have calledg myself 2710 times
+I have calledg myself 2711 times
+I have calledg myself 2712 times
+I have calledg myself 2713 times
+I have calledg myself 2714 times
+I have calledg myself 2715 times
+I have calledg myself 2716 times
+I have calledg myself 2717 times
+I have calledg myself 2718 times
+I have calledg myself 2719 times
+I have calledg myself 2720 times
+I have calledg myself 2721 times
+I have calledg myself 2722 times
+I have calledg myself 2723 times
+I have calledg myself 2724 times
+I have calledg myself 2725 times
+I have calledg myself 2726 times
+I have calledg myself 2727 times
+I have calledg myself 2728 times
+I have calledg myself 2729 times
+I have calledg myself 2730 times
+I have calledg myself 2731 times
+I have calledg myself 2732 times
+I have calledg myself 2733 times
+I have calledg myself 2734 times
+I have calledg myself 2735 times
+I have calledg myself 2736 times
+I have calledg myself 2737 times
+I have calledg myself 2738 times
+I have calledg myself 2739 times
+I have calledg myself 2740 times
+I have calledg myself 2741 times
+I have calledg myself 2742 times
+I have calledg myself 2743 times
+I have calledg myself 2744 times
+I have calledg myself 2745 times
+I have calledg myself 2746 times
+I have calledg myself 2747 times
+I have calledg myself 2748 times
+I have calledg myself 2749 times
+I have calledg myself 2750 times
+I have calledg myself 2751 times
+I have calledg myself 2752 times
+I have calledg myself 2753 times
+I have calledg myself 2754 times
+I have calledg myself 2755 times
+I have calledg myself 2756 times
+I have calledg myself 2757 times
+I have calledg myself 2758 times
+I have calledg myself 2759 times
+I have calledg myself 2760 times
+I have calledg myself 2761 times
+I have calledg myself 2762 times
+I have calledg myself 2763 times
+I have calledg myself 2764 times
+I have calledg myself 2765 times
+I have calledg myself 2766 times
+I have calledg myself 2767 times
+I have calledg myself 2768 times
+I have calledg myself 2769 times
+I have calledg myself 2770 times
+I have calledg myself 2771 times
+I have calledg myself 2772 times
+I have calledg myself 2773 times
+I have calledg myself 2774 times
+I have calledg myself 2775 times
+I have calledg myself 2776 times
+I have calledg myself 2777 times
+I have calledg myself 2778 times
+I have calledg myself 2779 times
+I have calledg myself 2780 times
+I have calledg myself 2781 times
+I have calledg myself 2782 times
+I have calledg myself 2783 times
+I have calledg myself 2784 times
+I have calledg myself 2785 times
+I have calledg myself 2786 times
+I have calledg myself 2787 times
+I have calledg myself 2788 times
+I have calledg myself 2789 times
+I have calledg myself 2790 times
+I have calledg myself 2791 times
+I have calledg myself 2792 times
+I have calledg myself 2793 times
+I have calledg myself 2794 times
+I have calledg myself 2795 times
+I have calledg myself 2796 times
+I have calledg myself 2797 times
+I have calledg myself 2798 times
+I have calledg myself 2799 times
+I have calledg myself 2800 times
+I have calledg myself 2801 times
+I have calledg myself 2802 times
+I have calledg myself 2803 times
+I have calledg myself 2804 times
+I have calledg myself 2805 times
+I have calledg myself 2806 times
+I have calledg myself 2807 times
+I have calledg myself 2808 times
+I have calledg myself 2809 times
+I have calledg myself 2810 times
+I have calledg myself 2811 times
+I have calledg myself 2812 times
+I have calledg myself 2813 times
+I have calledg myself 2814 times
+I have calledg myself 2815 times
+I have calledg myself 2816 times
+I have calledg myself 2817 times
+I have calledg myself 2818 times
+I have calledg myself 2819 times
+I have calledg myself 2820 times
+I have calledg myself 2821 times
+I have calledg myself 2822 times
+I have calledg myself 2823 times
+I have calledg myself 2824 times
+I have calledg myself 2825 times
+I have calledg myself 2826 times
+I have calledg myself 2827 times
+I have calledg myself 2828 times
+I have calledg myself 2829 times
+I have calledg myself 2830 times
+I have calledg myself 2831 times
+I have calledg myself 2832 times
+I have calledg myself 2833 times
+I have calledg myself 2834 times
+I have calledg myself 2835 times
+I have calledg myself 2836 times
+I have calledg myself 2837 times
+I have calledg myself 2838 times
+I have calledg myself 2839 times
+I have calledg myself 2840 times
+I have calledg myself 2841 times
+I have calledg myself 2842 times
+I have calledg myself 2843 times
+I have calledg myself 2844 times
+I have calledg myself 2845 times
+I have calledg myself 2846 times
+I have calledg myself 2847 times
+I have calledg myself 2848 times
+I have calledg myself 2849 times
+I have calledg myself 2850 times
+I have calledg myself 2851 times
+I have calledg myself 2852 times
+I have calledg myself 2853 times
+I have calledg myself 2854 times
+I have calledg myself 2855 times
+I have calledg myself 2856 times
+I have calledg myself 2857 times
+I have calledg myself 2858 times
+I have calledg myself 2859 times
+I have calledg myself 2860 times
+I have calledg myself 2861 times
+I have calledg myself 2862 times
+I have calledg myself 2863 times
+I have calledg myself 2864 times
+I have calledg myself 2865 times
+I have calledg myself 2866 times
+I have calledg myself 2867 times
+I have calledg myself 2868 times
+I have calledg myself 2869 times
+I have calledg myself 2870 times
+I have calledg myself 2871 times
+I have calledg myself 2872 times
+I have calledg myself 2873 times
+I have calledg myself 2874 times
+I have calledg myself 2875 times
+I have calledg myself 2876 times
+I have calledg myself 2877 times
+I have calledg myself 2878 times
+I have calledg myself 2879 times
+I have calledg myself 2880 times
+I have calledg myself 2881 times
+I have calledg myself 2882 times
+I have calledg myself 2883 times
+I have calledg myself 2884 times
+I have calledg myself 2885 times
+I have calledg myself 2886 times
+I have calledg myself 2887 times
+I have calledg myself 2888 times
+I have calledg myself 2889 times
+I have calledg myself 2890 times
+I have calledg myself 2891 times
+I have calledg myself 2892 times
+I have calledg myself 2893 times
+I have calledg myself 2894 times
+I have calledg myself 2895 times
+I have calledg myself 2896 times
+I have calledg myself 2897 times
+I have calledg myself 2898 times
+I have calledg myself 2899 times
+I have calledg myself 2900 times
+I have calledg myself 2901 times
+I have calledg myself 2902 times
+I have calledg myself 2903 times
+I have calledg myself 2904 times
+I have calledg myself 2905 times
+I have calledg myself 2906 times
+I have calledg myself 2907 times
+I have calledg myself 2908 times
+I have calledg myself 2909 times
+I have calledg myself 2910 times
+I have calledg myself 2911 times
+I have calledg myself 2912 times
+I have calledg myself 2913 times
+I have calledg myself 2914 times
+I have calledg myself 2915 times
+I have calledg myself 2916 times
+I have calledg myself 2917 times
+I have calledg myself 2918 times
+I have calledg myself 2919 times
+I have calledg myself 2920 times
+I have calledg myself 2921 times
+I have calledg myself 2922 times
+I have calledg myself 2923 times
+I have calledg myself 2924 times
+I have calledg myself 2925 times
+I have calledg myself 2926 times
+I have calledg myself 2927 times
+I have calledg myself 2928 times
+I have calledg myself 2929 times
+I have calledg myself 2930 times
+I have calledg myself 2931 times
+I have calledg myself 2932 times
+I have calledg myself 2933 times
+I have calledg myself 2934 times
+I have calledg myself 2935 times
+I have calledg myself 2936 times
+I have calledg myself 2937 times
+I have calledg myself 2938 times
+I have calledg myself 2939 times
+I have calledg myself 2940 times
+I have calledg myself 2941 times
+I have calledg myself 2942 times
+I have calledg myself 2943 times
+I have calledg myself 2944 times
+I have calledg myself 2945 times
+I have calledg myself 2946 times
+I have calledg myself 2947 times
+I have calledg myself 2948 times
+I have calledg myself 2949 times
+I have calledg myself 2950 times
+I have calledg myself 2951 times
+I have calledg myself 2952 times
+I have calledg myself 2953 times
+I have calledg myself 2954 times
+I have calledg myself 2955 times
+I have calledg myself 2956 times
+I have calledg myself 2957 times
+I have calledg myself 2958 times
+I have calledg myself 2959 times
+I have calledg myself 2960 times
+I have calledg myself 2961 times
+I have calledg myself 2962 times
+I have calledg myself 2963 times
+I have calledg myself 2964 times
+I have calledg myself 2965 times
+I have calledg myself 2966 times
+I have calledg myself 2967 times
+I have calledg myself 2968 times
+I have calledg myself 2969 times
+I have calledg myself 2970 times
+I have calledg myself 2971 times
+I have calledg myself 2972 times
+I have calledg myself 2973 times
+I have calledg myself 2974 times
+
+ maximum recursion depth exceeded
+</pre></div>
+</div>
+</div>
+</div>
+<section id="single-base-case">
+<h2>Single Base Case<a class="headerlink" href="#single-base-case" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">count_recursive</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+    <span class="c1"># Action to repeat</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Count </span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Base Case: If num is 1 we want to stop counting down</span>
+    <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># Terminate the function by returning</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Recursive Case: If num is larger than 1</span>
+    <span class="k">else</span><span class="p">:</span>
+       <span class="c1"># Call count_recursive() again, but decrement the input value by 1</span>
+       <span class="n">count_recursive</span><span class="p">(</span><span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">count_recursive</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Count 3!
+Count 2!
+Count 1!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="multiple-base-cases">
+<h2>Multiple Base Cases<a class="headerlink" href="#multiple-base-cases" title="Link to this heading">#</a></h2>
+<p>A recursive function may have multiple base cases. This is useful when we have multiple conditions under which we want to stop repeating our function body and want to specify different behavior for each condition.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if a given value is odd</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_odd</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+
+  <span class="c1"># Base Case 1: n is 0, which is not odd  </span>
+  <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1"># Return False</span>
+    <span class="k">return</span> <span class="kc">False</span>
+  <span class="c1"># Base Case 2: n is 1, which is odd</span>
+  <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="c1"># Return True</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="c1"># Recursive case: n is greater than 1</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Check if the input subtracted by 2 is odd</span>
+    <span class="c1"># If n - 2 is odd, n must also be odd</span>
+    <span class="k">return</span> <span class="n">is_odd</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">test_odd_value</span> <span class="o">=</span> <span class="n">is_odd</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> 
+<span class="n">test_even_value</span> <span class="o">=</span> <span class="n">is_odd</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">test_odd_value</span><span class="p">)</span> <span class="c1"># Prints True</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test_even_value</span><span class="p">)</span> <span class="c1"># Prints False</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="multiple-recursive-cases">
+<h2>Multiple Recursive Cases<a class="headerlink" href="#multiple-recursive-cases" title="Link to this heading">#</a></h2>
+<p>A recursive function may also have multiple recursive cases. This is useful when we want to specify different behavior depending on some condition(s).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Count the number of even values in a list</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">count_evens</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+  <span class="c1"># Base case: The list is empty</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">lst</span><span class="p">:</span>
+    <span class="c1"># There are 0 even values in the list</span>
+    <span class="k">return</span> <span class="mi">0</span>
+  
+  <span class="c1"># Recursive Case 1: The first value in the list is even</span>
+  <span class="k">if</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1"># Count of even values is 1 + the count of evens in the rest of the list</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">count_evens</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+  <span class="c1"># Recursive Case 2: The first value in the list is odd</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Count of even values is the count of evens in the rest of the list</span>
+    <span class="k">return</span> <span class="n">count_evens</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">count_evens</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="c1"># Prints 2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="merge-sort-big-o-nlogn">
+<h2>Merge Sort (Big-O nlogn)<a class="headerlink" href="#merge-sort-big-o-nlogn" title="Link to this heading">#</a></h2>
+<img src="./merge_sort.png" alt="Merge Sort Algo" style="width:800px;height:600px;"><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">arr</span>  <span class="c1"># Base case: arrays with 1 or no elements are already sorted</span>
+
+    <span class="c1"># Divide the array into two halves</span>
+    <span class="n">mid</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">left_half</span> <span class="o">=</span> <span class="n">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">[:</span><span class="n">mid</span><span class="p">])</span>
+    <span class="n">right_half</span> <span class="o">=</span> <span class="n">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">:])</span>
+
+    <span class="c1"># Merge the sorted halves</span>
+    <span class="k">return</span> <span class="n">merge</span><span class="p">(</span><span class="n">left_half</span><span class="p">,</span> <span class="n">right_half</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Pointer for left half</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Pointer for right half</span>
+
+    <span class="c1"># Compare elements from both halves and merge them in sorted order</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">right</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># Append any remaining elements in the left or right half</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">:])</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">merge_sort</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 4, 5, 9]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fibonacci-big-o-2-n">
+<h2>Fibonacci (Big-O 2^n)<a class="headerlink" href="#fibonacci-big-o-2-n" title="Link to this heading">#</a></h2>
+<p>Fibonacci sequence is a sequence of numbers where the nth number in the sequence is the sum of the previous two numbers in the sequence. The 0th Fibonacci number is 0 and the 1st Fibonacci number is 1 by definition. For example,</p>
+<ul class="simple">
+<li><p>Fib(0) = 0</p></li>
+<li><p>Fib(1) = 1</p></li>
+<li><p>Fib(2) = 1</p></li>
+<li><p>Fib(3) = 2</p></li>
+<li><p>Fib(4) = 3</p></li>
+<li><p>Fib(5) = 5</p></li>
+</ul>
+<img src="./fibonacci.png" alt="Fibonacci" style="width:400px;height:300px;"><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">n</span>
+    <span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">fib</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="recursion-and-space-complexity">
+<h2>Recursion and Space Complexity<a class="headerlink" href="#recursion-and-space-complexity" title="Link to this heading">#</a></h2>
+<p>The recursion call stack takes up memory! Stacks, including the call stack, are just a special type of list that insert and remove elements in a specific order. We can envision each function call as being an element in a list, which means the number of function calls our functions make affects our function’s space complexity!</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Chapter%203-%20Big-O%20Analysis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 3: Big-O Analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Chapter%205-%20Dynamic%20Programming.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 5: Dynamic Programming</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-base-case">Single Base Case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-base-cases">Multiple Base Cases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-recursive-cases">Multiple Recursive Cases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-sort-big-o-nlogn">Merge Sort (Big-O nlogn)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fibonacci-big-o-2-n">Fibonacci (Big-O 2^n)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursion-and-space-complexity">Recursion and Space Complexity</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Amna Gul
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
