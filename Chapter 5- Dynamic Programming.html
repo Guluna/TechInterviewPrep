@@ -240,7 +240,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+      <li><a href="https://github.com/Guluna/TechInterviewPrep" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -257,7 +257,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FChapter 5- Dynamic Programming.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/Guluna/TechInterviewPrep/issues/new?title=Issue%20on%20page%20%2FChapter 5- Dynamic Programming.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -396,7 +396,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="chapter-5-dynamic-programming">
+  <section id="chapter-5-dynamic-programming">
 <h1>Chapter 5: Dynamic Programming<a class="headerlink" href="#chapter-5-dynamic-programming" title="Link to this heading">#</a></h1>
 <p>Dynamic programming is just a fancy term for asking the computer to remember what it has already calculated (a technique known as Memoization).</p>
 <section id="d-dynamic-programming">
@@ -443,7 +443,7 @@ document.write(`
 </div>
 <p>The recursive solution is inefficient because it repeatedly solves some of the same subproblems. For example, for the</p>
 <p>This solution is inefficent because we repeatedly solve the same subproblems. For example, notice that to find the 5th Tribonacci number tribonacci_recursive(5), we make the function call tribonacci_recursive(2) four separate times.</p>
-<img src="./tribonacci.png" alt="tribonacci" style="width:500px;height:400px;">
+<img alt="tribonacci" src="_images/tribonacci.png" />
 <p>To eliminate the need for repeated recursive calls on the same problem, we can instead create an array to memoize or store the results to smaller subproblems as we encounter them.</p>
 <p>We can define the four components to a dynamic programming solution for Tribonacci as follows:</p>
 <ol class="arabic simple">
